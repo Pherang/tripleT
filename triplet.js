@@ -6,17 +6,7 @@
 * 
 */
 
-/*
-* Valid wins
-* 123
-* 456
-* 789
-* 147
-* 258
-* 369
-* 159
-* 356
-*/
+
 
 /* 
 * Computer's logic to win:
@@ -63,7 +53,19 @@ function computerTurn () {
 */
 // var gameGrid = [[1,4,7],[2,5,8],[3,6,9]];
 
-var gameGrid = [[1,4,7],[2,5,8],[3,6,9]];
+var gameGrid = {
+
+  one : '',
+  two : '',
+  three : '',
+  four : '',
+  five : '',
+  six : '',
+  seven : '',
+  eight : '',
+  nine : '',
+  
+}
 
 
 /*
@@ -83,7 +85,19 @@ var gameGrid = [[1,4,7],[2,5,8],[3,6,9]];
 
 /*
 * Need a way to detect a win
+* Valid wins: 123 ,456, 789, 147, 258, 369, 159, 357, 
 */
+function detectWin(boardObject){
+
+  if ( boardObject['one'] !== '' && boardObject['one'] === boardObject['two'] && boardObject['two'] === boardObject['three'] ) {
+   
+    alert('Winner');
+  }
+
+
+}
+
+
 
 /*
 * Need a  way to mark the board.
@@ -93,7 +107,8 @@ computerMark = 'O';
 
 function markSpot (XorO,gridSpot) {
   gridSpot.textContent = XorO;
-  console.log(gridSpot.id);
+  gameGrid[gridSpot.id] = XorO;
+  detectWin(gameGrid);
 }
 
 // All nine squares need to be clickable.
