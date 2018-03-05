@@ -7,7 +7,6 @@
 */
 
 
-
 /*
 * Valid wins
 * 123
@@ -80,3 +79,16 @@ var gameGrid = [[1,4,7],[2,5,8],[3,6,9]];
 /*
 * Need a way to detect a win
 */
+
+// All nine squares need to be clickable.
+var one = document.getElementById('one');
+var two = document.getElementById('two');
+var three = document.getElementById('three');
+var four = document.getElementById('four');
+var five = document.getElementById('five');
+var six = document.getElementById('six');
+var seven = document.getElementById('seven');
+var eight = document.getElementById('eight');
+var nine = document.getElementById('nine');
+
+one.addEventListener('click', console.log("dogshit"));
