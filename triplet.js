@@ -80,6 +80,18 @@ var gameGrid = [[1,4,7],[2,5,8],[3,6,9]];
 * Need a way to detect a win
 */
 
+/*
+* Need a  way to mark the board.
+*/
+playerMark = 'X';
+computerMark = 'O';
+function markSpot (XorO,gridSpot) {
+  if (!arguments[0]){
+    XorO = playerMark;
+  } 
+  gridSpot.textContent = XorO; 
+}
+
 // All nine squares need to be clickable.
 var one = document.getElementById('one');
 var two = document.getElementById('two');
@@ -91,4 +103,13 @@ var seven = document.getElementById('seven');
 var eight = document.getElementById('eight');
 var nine = document.getElementById('nine');
 
-one.addEventListener('click', console.log("dogshit"));
+one.addEventListener('click', function () { markSpot(playerMark,this); }, false );
+two.addEventListener('click', function () { markSpot(playerMark,this); }, false );
+three.addEventListener('click', function () { markSpot(playerMark,this); }, false );
+four.addEventListener('click', function () { markSpot(playerMark,this); }, false );
+five.addEventListener('click', function () { markSpot(playerMark,this); }, false );
+six.addEventListener('click', function () { markSpot(playerMark,this); }, false );
+seven.addEventListener('click', function () { markSpot(playerMark,this); }, false );
+eight.addEventListener('click', function () { markSpot(playerMark,this); }, false );
+nine.addEventListener('click', function () { markSpot(playerMark,this); }, false );
+
