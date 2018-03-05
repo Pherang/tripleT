@@ -6,7 +6,6 @@
 * 
 */
 
-
 /*
 * Valid wins
 * 123
@@ -50,15 +49,21 @@
 function computerTurn () {
 
 }
+
 /* 
 * Need some way of translating or tracking the positions 
-* [0][0] [1][0] [2][0]
-* [0][1] [1][1] [2][1]
-* [0][2] [1][2] [2][2]
+*
+* [0][0] [1][0] [2][0]   one two three
+* [0][1] [1][1] [2][1] = four five six 
+* [0][2] [1][2] [2][2]   seven eight nine
+* 
+* An array might not be the best for this actually.
+* It might be better as an object..
+*
 */
+// var gameGrid = [[1,4,7],[2,5,8],[3,6,9]];
+
 var gameGrid = [[1,4,7],[2,5,8],[3,6,9]];
-
-
 
 
 /*
@@ -85,11 +90,10 @@ var gameGrid = [[1,4,7],[2,5,8],[3,6,9]];
 */
 playerMark = 'X';
 computerMark = 'O';
+
 function markSpot (XorO,gridSpot) {
-  if (!arguments[0]){
-    XorO = playerMark;
-  } 
-  gridSpot.textContent = XorO; 
+  gridSpot.textContent = XorO;
+  console.log(gridSpot.id);
 }
 
 // All nine squares need to be clickable.
@@ -103,6 +107,7 @@ var seven = document.getElementById('seven');
 var eight = document.getElementById('eight');
 var nine = document.getElementById('nine');
 
+// Passes 'this' so that the markSpot function knows which grid location to update.
 one.addEventListener('click', function () { markSpot(playerMark,this); }, false );
 two.addEventListener('click', function () { markSpot(playerMark,this); }, false );
 three.addEventListener('click', function () { markSpot(playerMark,this); }, false );
