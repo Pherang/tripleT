@@ -36,7 +36,20 @@
 * 
 */
 
-function computerTurn () {
+function computerTurn (playerspick) {
+  console.log("wheeee");
+  console.log(playerspick);
+  switch (playerspick) {
+
+    case 'one':
+      console.log("case detected");
+      if (gameGrid['two'] === '') {
+        console.log("two will be marked");
+        gameGrid['two'] = computerMark;
+        setTimeout( markSpot(computerMark,two), 5000);
+      }
+
+  }
 
 }
 
@@ -90,12 +103,12 @@ var gameGrid = {
 function detectWin(boardObject){
 
   if ( boardObject['one'] !== '' && boardObject['one'] === boardObject['two'] && boardObject['two'] === boardObject['three'] ) {
-   
+    alert(boardObject);
     alert('Winner');
   }
 
-
 }
+
 
 
 
@@ -107,8 +120,16 @@ computerMark = 'O';
 
 function markSpot (XorO,gridSpot) {
   gridSpot.textContent = XorO;
-  gameGrid[gridSpot.id] = XorO;
-  detectWin(gameGrid);
+}
+
+function playerTurn (playersMark,gridSpot) {
+  if (gameGrid[gridSpot.id] === '') {
+    gameGrid[gridSpot.id] = playersMark;
+    markSpot(playersMark,gridSpot);
+    detectWin(gameGrid);
+    computerTurn(gridSpot.id);
+  }
+
 }
 
 // All nine squares need to be clickable.
@@ -123,13 +144,13 @@ var eight = document.getElementById('eight');
 var nine = document.getElementById('nine');
 
 // Passes 'this' so that the markSpot function knows which grid location to update.
-one.addEventListener('click', function () { markSpot(playerMark,this); }, false );
-two.addEventListener('click', function () { markSpot(playerMark,this); }, false );
-three.addEventListener('click', function () { markSpot(playerMark,this); }, false );
-four.addEventListener('click', function () { markSpot(playerMark,this); }, false );
-five.addEventListener('click', function () { markSpot(playerMark,this); }, false );
-six.addEventListener('click', function () { markSpot(playerMark,this); }, false );
-seven.addEventListener('click', function () { markSpot(playerMark,this); }, false );
-eight.addEventListener('click', function () { markSpot(playerMark,this); }, false );
-nine.addEventListener('click', function () { markSpot(playerMark,this); }, false );
+one.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
+two.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
+three.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
+four.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
+five.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
+six.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
+seven.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
+eight.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
+nine.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
 
