@@ -16,30 +16,56 @@ function checkRowOne () {
 // in the same row, column, or diagonal. 
 function computerTurn (playerspick) {
   console.log("Player picked " + playerspick);
-  
-  console.log(gameGrid);
   switch (playerspick) {
 
-    case 'one':
-      // If player picked one we need to check the row, column and diagonal along one.
+    case 'one':  // If player picked one we need to check the row, column and diagonal along one.
+     
       // Check the first row.
       var markCount = 0;
-      console.log("made it here");
-      console.log(gameGrid);
+      // Check the row for X's
       for (i = 0; i < 3; i++) {
         if (gameGrid[i][0] === playerMark) {
           console.log("X's found at " + i + "[0]");
           markCount++;
         }
       }
-      
       if (markCount === 2) {
-        
         for (i = 0; i < 3; i++) {
-          if (gameGrid[i][0] !== computerMark) {
-            var newspot = gameGrid[i][0];
-            newspot.textContent = computerMark;
-            gameGrid[i][0] = computerMark;
+          if (gameGrid[i][0] !== computerMark && gameGrid[i][0] !== playerMark ) {
+            gridLoc = document.getElementById(gameGrid[i][0]); // We store the original value which was a string representing the spot on the grid. e.g. two, five, seven
+            
+            console.log(gridLoc);
+            markGrid(computerMark, gridLoc.id)
+            markSpot(computerMark, gridLoc);
+            // detectWin(gameGrid);
+            gridMap.remap();
+            console.log(gameGrid);
+            console.log(gridMap);
+            
+          }
+        }
+        markcount = 0;
+      }
+      
+      // Check the column for X's
+      for (i = 0; i < 3; i++) {
+        if (gameGrid[0][i] === playerMark) {
+          console.log("X's found at " + i + "[0]");
+          markCount++;
+        }
+      }
+      if (markCount === 2) {
+        for (i = 0; i < 3; i++) {
+          if (gameGrid[0][i] !== computerMark && gameGrid[i][0] !== playerMark ) {
+            gridLoc = document.getElementById(gameGrid[i][0]); // We store the original value which was a string representing the spot on the grid. e.g. two, five, seven
+            
+            console.log(gridLoc);
+            markGrid(computerMark, gridLoc.id)
+            markSpot(computerMark, gridLoc);
+            // detectWin(gameGrid);
+            gridMap.remap();
+            console.log(gameGrid);
+            console.log(gridMap);
             
           }
         }
@@ -129,10 +155,10 @@ function detectWin(boardObject){
 }
 /*
 * Need function to translate visual grid spots to locations in array gameGrid
+* Function takes an Element ID as it's spot.
 */
 
 function markGrid (XorO,spot) {
-  console.log("The spot is " + XorO);
   
   switch (spot) {
     case 'one':
@@ -162,14 +188,12 @@ function markGrid (XorO,spot) {
       case 'nine':
       gameGrid[2][2] = XorO;
       break;
-      
   }
 
 }
 
 function checkGrid (spot) {
-      if (gridMap.spot !== computerMark &&  gridMap.spot !== playerMark) {
-        console.log(spot + " is empty");
+      if (gridMap[spot] !== computerMark &&  gridMap[spot] !== playerMark) {
         return true;
       }
 }
@@ -185,18 +209,19 @@ function markSpot (XorO, gridSpot) {
 }
 
 // function marks the visual grid and calls a function to mark the logical grid that is tracking the game.
+// gridSpot is the HTML element ID of the spot on the grid clicked.
 function playerTurn (playersMark, gridSpot) {
-  // Need to check if that spot was already marked. 
-  console.log(checkGrid(gridSpot.id));
+  
   if (checkGrid(gridSpot.id)) {
     console.log(gridSpot.id + " is good");
     markGrid(playersMark, gridSpot.id)
     markSpot(playersMark, gridSpot);
     // detectWin(gameGrid);
     gridMap.remap();
+    console.log(gameGrid);
     console.log(gridMap);
     // Computer needs to know where player marked.
-    //computerTurn(gridSpot.id);
+    computerTurn(gridSpot.id);
   }
 
 }
@@ -223,53 +248,6 @@ seven.addEventListener('click', function () { playerTurn(playerMark,this); }, fa
 eight.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
 nine.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
 
-/* Just in case I need this
-function computerTurn (playerspick) {
-  console.log('wheeee');
-  console.log('Player marked ' + playerspick);
-  console.log(gameGrid);
-  switch (playerspick) {
+console.log(gameGrid.indexOf('one'));
 
-    case 'one':
-      console.log('case detected');
-      if (gameGrid['two'] === '') {
-        
-        gameGrid['two'] = computerMark;
-        console.log('Grid is ' + gameGrid['two']);
-        setTimeout( markSpot(computerMark,two), 5000);
-      } else if (gameGrid['five'] === '') {
-        gameGrid['five'] = computerMark;
-        setTimeout( markSpot(computerMark,five), 5000);
-      } else if (gameGrid['four'] === '') {
-        gameGrid['four'] = computerMark;
-        setTimeout( markSpot(computerMark,four), 5000);
-      }
-      break;
-    case 'two':
-      console.log('case detected');
-      if (gameGrid['one'] === '') {
-        gameGrid['one'] = computerMark;
-        setTimeout( markSpot(computerMark,two), 5000);
-      } else if (gameGrid['three'] === '') {
-        gameGrid['three'] = computerMark;
-        setTimeout( markSpot(computerMark,five), 5000);
-      } else if (gameGrid['six'] === '') {
-        gameGrid['six'] = computerMark;
-        setTimeout( markSpot(computerMark,four), 5000);
-      }
-      break;
-      case 'three':
-      console.log('check whole row');
-      if (gameGrid['six'] === '') {
-        gameGrid['six'] = computerMark;
-        setTimeout( markSpot(computerMark,six), 5000);
-      } else if (gameGrid['nine'] === '') {
-        gameGrid['nine'] = computerMark;
-        setTimeout( markSpot(computerMark,nine), 5000);
-      } else if (gameGrid['two'] === '') {
-        gameGrid['two'] = computerMark;
-        setTimeout( markSpot(computerMark,two), 5000);
-      }
-      break;
-  }
-}*/
+
