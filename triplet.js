@@ -1,31 +1,4 @@
-/*
-* Need to figure out how to track tac tic toe 
-* It is a 3x3 grid.
-* Computer should block two X's in a row.
-* Computer should try to get its own three in a row of course.
-* 
-*/
-
 /* 
-* Computer's logic to win:
-* 123
-* 456
-* 789
-* First turn
-* user picks 5, computer picks 2,4,6,8.
-* user picks anything else, computer picks 5.
-*
-* 123
-* OX6
-* 789
-*
-* User picks another spot on the grid.
-* Computer checks to see if that spot leads to a win.
-* 
-* 1X3
-* OX6
-* 789
-*
 * Computer should check to see if the user has selected two numbers in any of the valid wins for the X they just marked.
 * If the user has then the computer selects the third number that the user needs to win.
 * If the user hasn't selected any two in a row then the computer checks to see if it has any two in a row.
@@ -33,19 +6,45 @@
 * If the computer doesn't have two in a row then it selects a number to build toward three in a row.
 * 
 */
+
 function checkRowOne () {
   
-  if (gameGrid[0][0] == playerMark) {}
+  if (gameGrid[0][0] === playerMark) {}
   
 }
+// Computer needs to check where the player marked and then see if there is another mark
+// in the same row, column, or diagonal. 
 function computerTurn (playerspick) {
-  console.log('wheeee');
-  console.log('Player marked ' + playerspick);
+  console.log("Player picked " + playerspick);
+  
   console.log(gameGrid);
   switch (playerspick) {
 
     case 'one':
-    
+      // If player picked one we need to check the row, column and diagonal along one.
+      // Check the first row.
+      var markCount = 0;
+      console.log("made it here");
+      console.log(gameGrid);
+      for (i = 0; i < 3; i++) {
+        if (gameGrid[i][0] === playerMark) {
+          console.log("X's found at " + i + "[0]");
+          markCount++;
+        }
+      }
+      
+      if (markCount === 2) {
+        
+        for (i = 0; i < 3; i++) {
+          if (gameGrid[i][0] !== computerMark) {
+            var newspot = gameGrid[i][0];
+            newspot.textContent = computerMark;
+            gameGrid[i][0] = computerMark;
+            
+          }
+        }
+      }
+
       break;
     case 'two':
    
@@ -66,7 +65,7 @@ function computerTurn (playerspick) {
 * 
 * An array might not be the best for this actually.
 * It might be better as an object..
-* No, an array is better
+* Looks like I need both for different reasons.
 *
 * What if it was eight arrays?
 * [one,two,three]
@@ -82,29 +81,34 @@ function computerTurn (playerspick) {
 *
 *
 */
-var gameGrid = [[1,4,7],[2,5,8],[3,6,9]];
-console.log('Grid at 0 0 is ' + gameGrid[0][0]);
+var gameGrid = [['one','four','seven'],['two','five','eight'],['three','six','nine']];
 
-/*var gameGrid = {
-
-  one : '',
-  two : '',
-  three : '',
-  four : '',
-  five : '',
-  six : '',
-  seven : '',
-  eight : '',
-  nine : '',
-  
-}*/
+// grid positions are used in many functions so its useful to have it defined in one place.
+var gridMap = {
+  one : gameGrid[0][0],
+  two : gameGrid[1][0],
+  three : gameGrid[2][0],
+  four : gameGrid[0][1],
+  five : gameGrid[1][1],
+  six : gameGrid[2][1],
+  seven : gameGrid[0][2],
+  eight : gameGrid[1][2],
+  nine : gameGrid[2][2],
+  remap : function () { // Need to get new values after grid gets updated by player or computer
+    this.one = gameGrid[0][0],
+    this.two = gameGrid[1][0],
+    this.three = gameGrid[2][0],
+    this.four = gameGrid[0][1],
+    this.five = gameGrid[1][1],
+    this.six = gameGrid[2][1],
+    this.seven = gameGrid[0][2],
+    this.eight = gameGrid[1][2],
+    this.nine = gameGrid[2][2]
+  }
+}
 
 /*
 * Need to allow user to pick X or O. If user picks one the computer is the other.
-*/
-
-/*
-* Need a way to switch and detect turns
 */
 
 /*
@@ -127,28 +131,47 @@ function detectWin(boardObject){
 * Need function to translate visual grid spots to locations in array gameGrid
 */
 
-function translateGrid (spot) {
-  console.log("Called me");
-  console.log('Spot is ' + spot);
+function markGrid (XorO,spot) {
+  console.log("The spot is " + XorO);
+  
   switch (spot) {
-    case one:
-      console.log(spot);
-      return gameGrid[0][0];
+    case 'one':
+      gameGrid[0][0] = XorO;
       break;
-    case two:
-      return gameGrid[0][1];
+      case 'two':
+      gameGrid[1][0] = XorO;
       break;
-    case three:
-      return gameGrid[0][2];
-      break;  
-    case 'four':
-      console.log('four be returned');
-      console.log(gameGrid[0][1]);
-      return gameGrid[0][1];
+      case 'three':
+      gameGrid[2][0] = XorO;
       break;
-          
+      case 'four':
+      gameGrid[0][1] = XorO;
+      break;
+      case 'five':
+      gameGrid[1][1] = XorO;
+      break;
+      case 'six':
+      gameGrid[2][1] = XorO;
+      break;
+      case 'seven':
+      gameGrid[0][2] = XorO;
+      break;
+      case 'eight':
+      gameGrid[1][2] = XorO;
+      break;
+      case 'nine':
+      gameGrid[2][2] = XorO;
+      break;
+      
   }
 
+}
+
+function checkGrid (spot) {
+      if (gridMap.spot !== computerMark &&  gridMap.spot !== playerMark) {
+        console.log(spot + " is empty");
+        return true;
+      }
 }
 
 /*
@@ -161,14 +184,19 @@ function markSpot (XorO, gridSpot) {
   gridSpot.textContent = XorO;
 }
 
+// function marks the visual grid and calls a function to mark the logical grid that is tracking the game.
 function playerTurn (playersMark, gridSpot) {
-  var gameSpot = translateGrid(gridSpot.id);
-  console.log(gameSpot);
-  if (gameSpot === '') {
-    gameSpot = playersMark;
+  // Need to check if that spot was already marked. 
+  console.log(checkGrid(gridSpot.id));
+  if (checkGrid(gridSpot.id)) {
+    console.log(gridSpot.id + " is good");
+    markGrid(playersMark, gridSpot.id)
     markSpot(playersMark, gridSpot);
-    detectWin(gameGrid);
-    computerTurn(gridSpot.id);
+    // detectWin(gameGrid);
+    gridMap.remap();
+    console.log(gridMap);
+    // Computer needs to know where player marked.
+    //computerTurn(gridSpot.id);
   }
 
 }
@@ -184,7 +212,7 @@ var seven = document.getElementById('seven');
 var eight = document.getElementById('eight');
 var nine = document.getElementById('nine');
 
-// Passes 'this' so that the markSpot function knows which grid location to update.
+// Passes 'this' so that the markSpot and markGrid functions knows which grid location to update.
 one.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
 two.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
 three.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
