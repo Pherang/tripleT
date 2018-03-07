@@ -7,29 +7,87 @@
 * 
 */
 
+/*
+  User picks a spot with label five.
+  We need to find find five in the grid.
+  But if five is already taken then we can't find it.
+
+  If we can find it because the computer hasn't picked it yet then we can choose it.
+  After we choose it the computer needs to check what we picked and counter it.
+  How will the computer know what we picked in the grid?
+
+  We can tell it explicitly by sending players pick to the function below.
+  this function will then run some predefined checks for that position.
+  there are nine positions to check.
+  27 checks to do. 
+
+  It seems like we need to define a few checks only and run those when needed.
+  E.g. a row check for the spot the player picked, a column check, and where applicable a diagonal.
+  There's no need to each row, column, and diagonal check.
+  We can define a function that checks the row that the player picked whatever the player picked.
+  There are five positions that needs a diagonal check. 0,0 1,1, 2,2, 0,2, 2,0
+  The rest of the positions only need a row column check.
+
+  The problem with the current program is that I have to define nine positions to check
+  AND all the row, column, diagonals to check. It seems unelegant.
+
+  The computer then only needs to know the indexes of what the player picked and not the spot to be translated.
+  The first step then is to figure out where in the array the player marked.
+  It sounds like I might need to send the grid coordinates to the computer instead of a string.
+  I might then need to store these coordinates first before calling computerTurn.
+
+  The looping algorithm to check a spot would be:
+
+  Freeze the X and check all the Ys.
+  Freeze the Y and check all the Xs
+
+  [0,1]
+
+  We would check column [0][0-3]
+  We would check row    [0-3][1]
+*/
+
 function checkRowOne () {
-  
   if (gameGrid[0][0] === playerMark) {}
-  
 }
 // Computer needs to check where the player marked and then see if there is another mark
 // in the same row, column, or diagonal. 
-function computerTurn (playerspick) {
-  console.log("Player picked " + playerspick);
-  switch (playerspick) {
 
-    case 'one':  // If player picked one we need to check the row, column and diagonal along one.
-     
+// finds the position that the player picked.
+function findGridPos (spot) {
+  for (x=0; x < 3; x++){
+    var y = gameGrid[x].indexOf(spot);
+    console.log("index is " + x + " and " + y);
+    if (y !== -1) break; 
+  }
+  return [x,y];
+}
+
+function computerTurn (playerspick) {
+  var twoFound = false; // two player marks found in any row, column or diagonal
+  console.log("Player picked " + playerspick);
+  var x = 0; // grid position
+  var y = 0; // grid position
+  var pos = playerspick; // pos is an array that contains the indexes of the player's mark. [1,1] is 5 on the visual grid.
+  
+  console.log(pos);
+  switch (pos) {
+
+    case '0,0':  // If player picked one we need to check the row, column and diagonal along one.
+      console.log(gameGrid[pos[0]][pos[1]]);
       // Check the first row.
       var markCount = 0;
       // Check the row for X's
       for (i = 0; i < 3; i++) {
         if (gameGrid[i][0] === playerMark) {
           console.log("X's found at " + i + "[0]");
+          console.log("row check");
           markCount++;
         }
       }
+      console.log(markCount);
       if (markCount === 2) {
+        twoFound = true;
         for (i = 0; i < 3; i++) {
           if (gameGrid[i][0] !== computerMark && gameGrid[i][0] !== playerMark ) {
             gridLoc = document.getElementById(gameGrid[i][0]); // We store the original value which was a string representing the spot on the grid. e.g. two, five, seven
@@ -44,33 +102,35 @@ function computerTurn (playerspick) {
             
           }
         }
-        markcount = 0;
+        
       }
-      
+      markCount = 0;
       // Check the column for X's
-      for (i = 0; i < 3; i++) {
-        if (gameGrid[0][i] === playerMark) {
-          console.log("X's found at " + i + "[0]");
-          markCount++;
-        }
-      }
-      if (markCount === 2) {
+      if (!twoFound) {
         for (i = 0; i < 3; i++) {
-          if (gameGrid[0][i] !== computerMark && gameGrid[i][0] !== playerMark ) {
-            gridLoc = document.getElementById(gameGrid[i][0]); // We store the original value which was a string representing the spot on the grid. e.g. two, five, seven
-            
-            console.log(gridLoc);
-            markGrid(computerMark, gridLoc.id)
-            markSpot(computerMark, gridLoc);
-            // detectWin(gameGrid);
-            gridMap.remap();
-            console.log(gameGrid);
-            console.log(gridMap);
-            
+          if (gameGrid[0][i] === playerMark) {
+            console.log("X's found at " + i + "[0]");
+            console.log("column check");
+            markCount++;
           }
         }
-      }
-
+        if (markCount === 2) {
+          for (i = 0; i < 3; i++) {
+            if (gameGrid[0][i] !== computerMark && gameGrid[i][0] !== playerMark ) {
+              gridLoc = document.getElementById(gameGrid[i][0]); // We store the original value which was a string representing the spot on the grid. e.g. two, five, seven
+              
+              console.log(gridLoc);
+              markGrid(computerMark, gridLoc.id)
+              markSpot(computerMark, gridLoc);
+              // detectWin(gameGrid);
+              gridMap.remap();
+              console.log(gameGrid);
+              console.log(gridMap);
+              
+            }
+          }
+        }
+      } // end of column search
       break;
     case 'two':
    
@@ -214,14 +274,16 @@ function playerTurn (playersMark, gridSpot) {
   
   if (checkGrid(gridSpot.id)) {
     console.log(gridSpot.id + " is good");
+    var playerSpot = findGridPos(gridSpot.id);
     markGrid(playersMark, gridSpot.id)
     markSpot(playersMark, gridSpot);
+    
     // detectWin(gameGrid);
     gridMap.remap();
     console.log(gameGrid);
     console.log(gridMap);
     // Computer needs to know where player marked.
-    computerTurn(gridSpot.id);
+    computerTurn(playerSpot);
   }
 
 }
@@ -249,5 +311,4 @@ eight.addEventListener('click', function () { playerTurn(playerMark,this); }, fa
 nine.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
 
 console.log(gameGrid.indexOf('one'));
-
 
