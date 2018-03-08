@@ -69,78 +69,111 @@ function computerTurn (playerspick) {
   var x = 0; // grid position
   var y = 0; // grid position
   var pos = playerspick; // pos is an array that contains the indexes of the player's mark. [1,1] is 5 on the visual grid.
+  var playerMarkCount = 0;
   
-  console.log(pos);
-  switch (pos) {
-
-    case '0,0':  // If player picked one we need to check the row, column and diagonal along one.
-      console.log(gameGrid[pos[0]][pos[1]]);
-      // Check the first row.
-      var markCount = 0;
-      // Check the row for X's
-      for (i = 0; i < 3; i++) {
-        if (gameGrid[i][0] === playerMark) {
-          console.log("X's found at " + i + "[0]");
-          console.log("row check");
-          markCount++;
-        }
-      }
-      console.log(markCount);
-      if (markCount === 2) {
-        twoFound = true;
-        for (i = 0; i < 3; i++) {
-          if (gameGrid[i][0] !== computerMark && gameGrid[i][0] !== playerMark ) {
-            gridLoc = document.getElementById(gameGrid[i][0]); // We store the original value which was a string representing the spot on the grid. e.g. two, five, seven
-            
-            console.log(gridLoc);
-            markGrid(computerMark, gridLoc.id)
-            markSpot(computerMark, gridLoc);
-            // detectWin(gameGrid);
-            gridMap.remap();
-            console.log(gameGrid);
-            console.log(gridMap);
-            
-          }
-        }
-        
-      }
-      markCount = 0;
-      // Check the column for X's
-      if (!twoFound) {
-        for (i = 0; i < 3; i++) {
-          if (gameGrid[0][i] === playerMark) {
-            console.log("X's found at " + i + "[0]");
-            console.log("column check");
-            markCount++;
-          }
-        }
-        if (markCount === 2) {
-          for (i = 0; i < 3; i++) {
-            if (gameGrid[0][i] !== computerMark && gameGrid[i][0] !== playerMark ) {
-              gridLoc = document.getElementById(gameGrid[i][0]); // We store the original value which was a string representing the spot on the grid. e.g. two, five, seven
-              
-              console.log(gridLoc);
-              markGrid(computerMark, gridLoc.id)
-              markSpot(computerMark, gridLoc);
-              // detectWin(gameGrid);
-              gridMap.remap();
-              console.log(gameGrid);
-              console.log(gridMap);
-              
-            }
-          }
-        }
-      } // end of column search
-      break;
-    case 'two':
-   
-      break;
-      case 'three':
-   
-      break;
+  // Check row
+  console.log("Row check")
+  for (i = 0; i < 3; i++) {
+    if (gameGrid[i][pos[1]] === playerMark) {
+      playerMarkCount++;
+      console.log("found an x at " + i + ", " + pos[1]);
+    }
   }
+  console.log('Found Xes: ' + playerMarkCount);
+  if (playerMarkCount === 2) {
+    twoFound = true;
+    markCount = 0;
+    for (i = 0; i < 3; i++) {
+      if (gameGrid[i][pos[1]] !== playerMark && gameGrid[i][pos[1]] !== computerMark) {
+        console.log("Empty spot in row is " + gameGrid[i][pos[1]]);
+        var gridSpot = document.getElementById(gameGrid[i][pos[1]]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+    // detectWin(gameGrid);
+    gridMap.remap();
+      }
+    }
 
-}
+  }
+  
+  // Check column
+  if (!twoFound) {
+    playerMarkCount = 0;
+    
+    console.log("Column check");
+    for (i = 0; i < 3; i++) {
+      if (gameGrid[pos[0]][i] === playerMark) {
+        playerMarkCount++;
+        console.log("found an x at " + pos[0] + ", " + i);
+      }
+    }
+    if (playerMarkCount === 2) {
+      twoFound = true;
+      playerMarkCount = 0;
+      for (i = 0; i < 3; i++) {
+        if (gameGrid[pos[0]][i] !== playerMark && gameGrid[pos[0]][i] !== computerMark) {
+          console.log("Empty spot in row is " + gameGrid[pos[0]][i]);
+          var gridSpot = document.getElementById(gameGrid[pos[0]][i]);
+          markGrid(computerMark, gridSpot.id);
+          markSpot(computerMark, gridSpot);
+        }
+      }
+  
+    }
+  }
+  // Specific cases check diagonal 0,0 0,2 2,0 2,2 1,1
+  if (!twoFound && (pos == '0,0' || pos == '1,1' || pos == '2,2')) {
+    playerMarkCount = 0;
+    
+    console.log("Diagonal Check");
+    for (i = 0; i < 3; i++) {
+      if (gameGrid[i][i] === playerMark) {
+        playerMarkCount++;
+        console.log("found an x at " + i + ", " + i);
+      }
+    }
+    if (playerMarkCount === 2) {
+      twoFound = true;
+      playerMarkCount = 0;
+      for (i = 0; i < 3; i++) {
+        if (gameGrid[i][i] !== playerMark && gameGrid[i][i] !== computerMark) {
+          console.log("Empty spot in row is " + gameGrid[i][i]);
+          var gridSpot = document.getElementById(gameGrid[i][i]);
+          markGrid(computerMark, gridSpot.id);
+          markSpot(computerMark, gridSpot);
+        }
+      }
+  
+    }
+  }
+  // Check second diagonal
+  if (!twoFound && (pos == '0,2' || pos == '1,1' || pos == '2,0')) {
+    playerMarkCount = 0;
+    
+    console.log("Diagonal Check");
+    for (i = 0; i < 3; i++) {
+      if (gameGrid[0+i][2-i] === playerMark) {
+        playerMarkCount++;
+        console.log("found an x at " + i + ", " + i);
+      }
+    }
+    if (playerMarkCount === 2) {
+      twoFound = true;
+      playerMarkCount = 0;
+      for (i = 0; i < 3; i++) {
+        if (gameGrid[0+i][2-i] !== playerMark && gameGrid[0+i][2-i] !== computerMark) {
+          console.log("Empty spot in row is " + gameGrid[0+i][2-i]);
+          var gridSpot = document.getElementById(gameGrid[0+i][2-i]);
+          markGrid(computerMark, gridSpot.id);
+          markSpot(computerMark, gridSpot);
+        }
+      }
+  
+    }
+  }
+  gridMap.remap();
+
+} // end computerTurn
 
 /* 
 * Need some way of translating or tracking the positions 
@@ -217,7 +250,6 @@ function detectWin(boardObject){
 * Need function to translate visual grid spots to locations in array gameGrid
 * Function takes an Element ID as it's spot.
 */
-
 function markGrid (XorO,spot) {
   
   switch (spot) {
