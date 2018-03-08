@@ -50,9 +50,6 @@
 function checkRowOne () {
   if (gameGrid[0][0] === playerMark) {}
 }
-// Computer needs to check where the player marked and then see if there is another mark
-// in the same row, column, or diagonal. 
-
 // finds the position that the player picked.
 function findGridPos (spot) {
   for (x=0; x < 3; x++){
@@ -89,9 +86,10 @@ function computerTurn (playerspick) {
         var gridSpot = document.getElementById(gameGrid[i][pos[1]]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
+        break;
     // detectWin(gameGrid);
     gridMap.remap();
-      }
+      } 
     }
 
   }
@@ -99,7 +97,6 @@ function computerTurn (playerspick) {
   // Check column
   if (!twoFound) {
     playerMarkCount = 0;
-    
     console.log("Column check");
     for (i = 0; i < 3; i++) {
       if (gameGrid[pos[0]][i] === playerMark) {
@@ -116,7 +113,8 @@ function computerTurn (playerspick) {
           var gridSpot = document.getElementById(gameGrid[pos[0]][i]);
           markGrid(computerMark, gridSpot.id);
           markSpot(computerMark, gridSpot);
-        }
+          break;
+        } 
       }
   
     }
@@ -141,7 +139,8 @@ function computerTurn (playerspick) {
           var gridSpot = document.getElementById(gameGrid[i][i]);
           markGrid(computerMark, gridSpot.id);
           markSpot(computerMark, gridSpot);
-        }
+          break;
+        } 
       }
   
     }
@@ -166,9 +165,41 @@ function computerTurn (playerspick) {
           var gridSpot = document.getElementById(gameGrid[0+i][2-i]);
           markGrid(computerMark, gridSpot.id);
           markSpot(computerMark, gridSpot);
+          break;
         }
       }
   
+    }
+  }
+
+  /* If there are no two in a rows after checking row column and diagonal then the computer 
+     tries to get the middle. Otherwise it could go in a clockwise pattern finding a valid and empty spot. */
+  if (!twoFound) {
+    var t = 1;
+    x = pos[0];
+    y = pos[1];
+    
+    if (gameGrid[1][1] !== playerMark && gameGrid[1][1] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[1][1]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[x][y-t] !== undefined && gameGrid[x][y-t] !== playerMark && gameGrid[x][y-t] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[x][y-t]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[(x+t)][y] !== undefined && gameGrid[(x+t)][y] !== playerMark && gameGrid[(x+t)][y] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[(x+t)][y]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[x][(y+t)] !== undefined && gameGrid[x][(y+t)] !== playerMark && gameGrid[x][(y+t)] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[x][(y+t)]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[x-t][y] !== undefined && gameGrid[x-t][y] !== playerMark && gameGrid[x-t][y] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[x-t][y]);
+      
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
     }
   }
   gridMap.remap();
@@ -341,6 +372,3 @@ six.addEventListener('click', function () { playerTurn(playerMark,this); }, fals
 seven.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
 eight.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
 nine.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-
-console.log(gameGrid.indexOf('one'));
-
