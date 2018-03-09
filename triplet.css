@@ -67,14 +67,27 @@ body {
 }
 
 .tableTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border: 5px solid #6FC3DF;
   background-color: black;
   box-shadow: 3px 3px black;
   margin-left:0%;
   margin-right:0%
+  
 }
 
-.gameBoard{
+.msgBoard {
+  color: #DF740C;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.gameBoard {
   border: 3px solid;
   background-color: rgb(62, 71, 80);
 }
@@ -100,7 +113,7 @@ body {
       width: 400px;
       height: 440px;
       margin-top: 100px;
-      margin-bottom: 100px;
+      margin-bottom: 145px;
       margin-left: 5%;
       margin-right: 5%;
     }
@@ -113,7 +126,7 @@ body {
       grid-auto-rows: 115px;*/
       width: 350px;
       height: 350px;
-      margin-top: 40px;
+      margin-top: 10px;
       
       margin-left: 20px;
       margin-right: 20px;

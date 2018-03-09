@@ -146,6 +146,12 @@ function scanWin() {
     
 }
 
+function scanBoard() {
+
+  
+
+}
+
 // finds the position that the player picked.
 function findGridPos (spot) {
   for (x=0; x < 3; x++){
@@ -162,7 +168,10 @@ function computerTurn (playerspick) {
   var pos = playerspick; // pos is an array that contains the indexes of the player's mark. [1,1] is 5 on the visual grid.
   var playerMarkCount = 0;
   
-  if (scanWin()) { console.log('Exiting function because Computer won'); return true;} // scans for wins before next turn. If there's a potential win go for that instead.
+  if (scanWin()) { 
+    scoreBoard.textContent = "Sark Wins!"
+    freezeBoard();
+    return true;} // scans for wins before next turn. If there's a potential win go for that instead.
   // Check row
   for (i = 0; i < 3; i++) {
     if (gameGrid[i][pos[1]] === playerMark) {
@@ -426,11 +435,30 @@ function checkGrid (spot) {
       }
 }
 
+/* Player chooses X or O */
+var playerMark;
+var computerMark;
+
+function chooseWeapon (tabchosen) {
+  if (tabchosen.id === 'xTab') {
+    playerMark = 'X'; 
+    computerMark = 'O';
+  }
+  if (tabchosen.id === 'oTab') {
+    playerMark = 'O'; 
+    computerMark = 'X';
+  }
+  console.log('Player has chosen ' + playerMark);
+  console.log('Computer has chosen ' + computerMark);
+}
+
+
+
+
 /*
 * Need a  way to mark the board.
 */
-playerMark = 'X';
-computerMark = 'O';
+
 
 function markSpot (XorO, gridSpot) {
   gridSpot.textContent = XorO;
@@ -464,13 +492,44 @@ var seven = document.getElementById('seven');
 var eight = document.getElementById('eight');
 var nine = document.getElementById('nine');
 
-// Passes 'this' so that the markSpot and markGrid functions knows which grid location to update.
-one.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-two.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-three.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-four.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-five.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-six.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-seven.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-eight.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-nine.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
+function gridClicked () {
+  playerTurn(playerMark,this);
+}
+
+
+function setupBoard () {
+  // Passes 'this' so that the markSpot and markGrid functions knows which grid location to update.
+  scoreBoard.textContent = 'Can You Win User?'
+  one.addEventListener('click', gridClicked, false );
+  two.addEventListener('click', gridClicked, false );
+  three.addEventListener('click', gridClicked, false );
+  four.addEventListener('click', gridClicked, false );
+  five.addEventListener('click', gridClicked, false );
+  six.addEventListener('click', gridClicked, false );
+  seven.addEventListener('click', gridClicked, false );
+  eight.addEventListener('click', gridClicked, false );
+  nine.addEventListener('click', gridClicked, false );
+}
+
+function freezeBoard () {
+  // Passes 'this' so that the markSpot and markGrid functions knows which grid location to update.
+  console.log('Shutting board down');
+  one.removeEventListener('click', gridClicked, false );
+  two.removeEventListener('click', gridClicked, false );
+  three.removeEventListener('click', gridClicked, false );
+  four.removeEventListener('click', gridClicked, false );
+  five.removeEventListener('click', gridClicked, false );
+  six.removeEventListener('click', gridClicked, false );
+  seven.removeEventListener('click', gridClicked, false );
+  eight.removeEventListener('click', gridClicked, false );
+  nine.removeEventListener('click', gridClicked, false );
+}
+
+// User needs to be able to choose X or O 
+var leftTab = document.getElementById('xTab');
+var rightTab = document.getElementById('oTab');
+
+leftTab.addEventListener('click', function () { chooseWeapon(this); setupBoard(); } );
+rightTab.addEventListener('click', function () { chooseWeapon(this); setupBoard(); } );
+
+var scoreBoard = document.getElementById('scoreBoard');
