@@ -296,20 +296,20 @@ function computerTurn (playerspick) {
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
       // Check if the corners are free
-    } else if ( (( x - t > -1 && y - t > -1) ? gameGrid[x-t][y-t] : false) && gameGrid[x-t][y-t] !== playerMark && gameGrid[x-t][y-t] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[x-t][y-t]);
+    } else if (gameGrid[0][0] !== playerMark && gameGrid[0][0] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[0][0]);
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
-    } else if ( (( (x + t) < 3 && (y - t) < 3) ? gameGrid[(x+t)][(y-t)] : false) && gameGrid[(x+t)][y-t] !== playerMark && gameGrid[(x+t)][y-t] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[(x+t)][y-t]);
+    } else if (gameGrid[2][0] !== playerMark && gameGrid[2][0] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[2][0]);
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
-    } else if ( (( (x - t) > -1 && (y + t) < 3) ? gameGrid[(x-t)][(y+t)] : false) && gameGrid[(x-t)][(y+t)] !== playerMark && gameGrid[(x-t)][(y+t)] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[(x-t)][(y+t)]);
+    } else if (gameGrid[2][2] !== playerMark && gameGrid[2][2] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[2][2]);
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
-    } else if ( (( (x + t) < 3 && (y + t) < 3) ? gameGrid[(x+t)][(y+t)] : false) && gameGrid[(x+t)][(y+t)] !== playerMark && gameGrid[(x+t)][(y+t)] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[(x+t)][(y+t)]);
+    } else if (gameGrid[0][2] !== playerMark && gameGrid[0][2] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[0][2]);
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
     } 
