@@ -253,7 +253,7 @@ function computerTurn (playerspick) {
         var gridSpot = document.getElementById(gameGrid[2][0]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
-        console.og('Tried top right');
+        console.log('Tried top right');
       } else if (gameGrid[2][2] !== playerMark && gameGrid[2][2] !== computerMark) {
         
         var gridSpot = document.getElementById(gameGrid[2][2]);
@@ -268,29 +268,30 @@ function computerTurn (playerspick) {
     }
     
     if (postest === '0,0' || postest === '2,0' || postest === '2,2' || postest === '0,2') {
-    // If the corners aren't taken try the regular spots.
-     if (gameGrid[1][0] !== playerMark && gameGrid[1][0] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[1][0]);
-      markGrid(computerMark, gridSpot.id);
-      markSpot(computerMark, gridSpot);
-    } else if (gameGrid[2][1] !== playerMark && gameGrid[2][1] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[2][1]);
-      markGrid(computerMark, gridSpot.id);
-      markSpot(computerMark, gridSpot);
-    } else if (gameGrid[1][2] !== playerMark && gameGrid[1][2] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[1][2]);
-      markGrid(computerMark, gridSpot.id);
-      markSpot(computerMark, gridSpot);
-    } else if (gameGrid[0][1] !== playerMark && gameGrid[0][1] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[0][1]);
-      markGrid(computerMark, gridSpot.id);
-      markSpot(computerMark, gridSpot);
-    } else if (gameGrid[1][1] !== playerMark && gameGrid[1][1] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[1][1]);
-      markGrid(computerMark, gridSpot.id);
-      markSpot(computerMark, gridSpot);
+      // If the corners aren't taken try the regular spots.
+      if (gameGrid[1][1] !== playerMark && gameGrid[1][1] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[1][1]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
       // Check if the corners are free
-    } 
+      } else 
+      if (gameGrid[1][0] !== playerMark && gameGrid[1][0] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[1][0]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } else if (gameGrid[2][1] !== playerMark && gameGrid[2][1] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[2][1]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } else if (gameGrid[1][2] !== playerMark && gameGrid[1][2] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[1][2]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } else if (gameGrid[0][1] !== playerMark && gameGrid[0][1] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[0][1]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } 
   }
     console.log('Computer chose ' + gridSpot.id) ;
   
