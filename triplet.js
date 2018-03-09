@@ -1,52 +1,4 @@
-/* 
-* Computer should check to see if the user has selected two numbers in any of the valid wins for the X they just marked.
-* If the user has then the computer selects the third number that the user needs to win.
-* If the user hasn't selected any two in a row then the computer checks to see if it has any two in a row.
-* If it does then it tries to select the third number to win.
-* If the computer doesn't have two in a row then it selects a number to build toward three in a row.
-* 
-*/
-
-/*
-  User picks a spot with label five.
-  We need to find find five in the grid.
-  But if five is already taken then we can't find it.
-
-  If we can find it because the computer hasn't picked it yet then we can choose it.
-  After we choose it the computer needs to check what we picked and counter it.
-  How will the computer know what we picked in the grid?
-
-  We can tell it explicitly by sending players pick to the function below.
-  this function will then run some predefined checks for that position.
-  there are nine positions to check.
-  27 checks to do. 
-
-  It seems like we need to define a few checks only and run those when needed.
-  E.g. a row check for the spot the player picked, a column check, and where applicable a diagonal.
-  There's no need to each row, column, and diagonal check.
-  We can define a function that checks the row that the player picked whatever the player picked.
-  There are five positions that needs a diagonal check. 0,0 1,1, 2,2, 0,2, 2,0
-  The rest of the positions only need a row column check.
-
-  The problem with the current program is that I have to define nine positions to check
-  AND all the row, column, diagonals to check. It seems unelegant.
-
-  The computer then only needs to know the indexes of what the player picked and not the spot to be translated.
-  The first step then is to figure out where in the array the player marked.
-  It sounds like I might need to send the grid coordinates to the computer instead of a string.
-  I might then need to store these coordinates first before calling computerTurn.
-
-  The looping algorithm to check a spot would be:
-
-  Freeze the X and check all the Ys.
-  Freeze the Y and check all the Xs
-
-  [0,1]
-
-  We would check column [0][0-3]
-  We would check row    [0-3][1]
-*/
-
+// Scan to see if computer has won.
 function scanWin() {
   ("Running scan win")
   marks = 0;
@@ -330,7 +282,7 @@ function computerTurn (playerspick) {
       var gridSpot = document.getElementById(gameGrid[x-t][y]);
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
-    }
+    } 
   
 }
   gridMap.remap();
