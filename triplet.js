@@ -133,13 +133,13 @@ function computerTurn (playerspick) {
   if (scanWin()) { 
     scoreBoard.textContent = "Sark Wins!"
     freezeBoard();
-    setTimeout(initGame, 3000);
+    setTimeout(initGame, 2500);
     return true;
   }
   if (scanForDraw()) {
     scoreBoard.textContent = "Draw! Impressive User.."
     freezeBoard();
-    setTimeout(initGame, 3000);
+    setTimeout(initGame, 2500);
     return true;
   } 
   // Check row
@@ -266,20 +266,20 @@ function computerTurn (playerspick) {
       markSpot(computerMark, gridSpot);
     } 
     // If the corners aren't taken try the regular spots.
-     else if (( y - t > -1 ? gameGrid[x][y-t] : false) && gameGrid[x][y-t] !== playerMark && gameGrid[x][y-t] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[x][y-t]);
+    else if (gameGrid[1][0] !== playerMark && gameGrid[1][0] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[1][0]);
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
-    } else if ((x + t < 3 ? gameGrid[(x+t)][y] : false) && gameGrid[(x+t)][y] !== playerMark && gameGrid[(x+t)][y] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[(x+t)][y]);
+    } else if (gameGrid[2][1] !== playerMark && gameGrid[2][1] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[2][1]);
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
-    } else if (( y + t < 3 ? gameGrid[x][(y+t)] : false) && gameGrid[x][(y+t)] !== playerMark && gameGrid[x][(y+t)] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[x][(y+t)]);
+    } else if (gameGrid[1][2] !== playerMark && gameGrid[1][2] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[1][2]);
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
-    } else if (( x - t > -1 ? gameGrid[x-t][y] : false) && gameGrid[x-t][y] !== playerMark && gameGrid[x-t][y] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[x-t][y]);
+    } else if (gameGrid[0][1] !== playerMark && gameGrid[0][1] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[0][1]);
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
     } 
@@ -410,7 +410,7 @@ function playerTurn (playersMark, gridSpot) {
     // detectWin(gameGrid);
     gridMap.remap();
     // Computer needs to know where player marked.
-    computerTurn(playerSpot);
+    setTimeout(computerTurn, 400, playerSpot);
   }
 
 }
