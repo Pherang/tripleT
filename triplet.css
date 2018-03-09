@@ -10,7 +10,6 @@ body {
     /*padding-top: 60px;*/
     font-family: 'Lato', sans-serif;
     background-color: #333333;
-    
 }
 
 #room {
@@ -18,7 +17,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 50%;
+  margin-top: 30%;
 }
 
 .tab {
@@ -30,7 +29,6 @@ body {
   width: 50px;
   height: 50px;
   font-size: 25px;
-  
 }
 
 .leftTab {
@@ -46,7 +44,6 @@ body {
 .leftTab:hover {
   border: 3px solid white;
   background-color: rgb(62, 71, 80);
- 
 }
 
 .rightTab {
