@@ -48,7 +48,7 @@
 */
 
 function scanWin() {
-  console.log("Running scan win")
+  ("Running scan win")
   marks = 0;
   var computerWins = false;
   
@@ -56,11 +56,11 @@ function scanWin() {
   for (y = 0; y < 3; y++) {
     for (x = 0; x < 3; x++) {
       if (gameGrid[x][y] === computerMark) {
-        console.log("Row scan X is " + x + " Y is " + y + " GRID is " + gameGrid[x][y]);
+        ("Row scan X is " + x + " Y is " + y + " GRID is " + gameGrid[x][y]);
         marks++;
       }
     }
-    console.log(marks)
+    (marks)
     if (marks === 1) marks = 0;
     // if a potential win is detected go back in to mark the empty spot.
     if (marks === 2) {
@@ -68,7 +68,6 @@ function scanWin() {
       for (x = 0; x < 3; x++) {
         if (gameGrid[x][y] !== computerMark && gameGrid[x][y] !== playerMark) {
           computerWins = true;
-          console.log("I win by row");
           var gridSpot = document.getElementById(gameGrid[x][y]);
           markGrid(computerMark, gridSpot.id);
           markSpot(computerMark, gridSpot);
@@ -79,25 +78,19 @@ function scanWin() {
   }
 
   //scans columns for potential wins
-  console.log("No winning row found")
-  
   for (x = 0; x < 3; x++) {
     for (y = 0; y < 3; y++) {
-      console.log("Column scan X is " + x + " Y is " + y + " GRID is " + gameGrid[x][y]);
       if (gameGrid[x][y]  === computerMark) {
-        console.log("Found an O at " + x + " " + y)
         marks++;
       } 
     }
     if (marks === 1 ) marks = 0;
-    console.log('Working on column ' + x + ' we found Os: ' + marks);
     // if a potential win is detected go back in to mark the empty spot.
     if (marks === 2) {
       marks = 0
       for (y = 0; y < 3; y++) {
         if (gameGrid[x][y] !== computerMark && gameGrid[x][y] !== playerMark) {
           computerWins = true;
-          console.log("I win by column");
           var gridSpot = document.getElementById(gameGrid[x][y]);
           markGrid(computerMark, gridSpot.id);
           markSpot(computerMark, gridSpot);
@@ -108,24 +101,19 @@ function scanWin() {
   }
 
   //scans backslash diagonal for potential wins
-  console.log("No winning column found")
   if (marks === 1) marks = 0;
     for (x = 0; x < 3; x++) {
-      console.log("Column scan X is " + x + " Y is " + x + " GRID is " + gameGrid[(0+x)][(0+x)]);
       if (gameGrid[(0+x)][(0+x)]  === computerMark) {
-        console.log("Found an O at " + x + " " + x)
         marks++;
       } 
     }
     if (marks === 1 ) marks = 0;
-    console.log('Working on column ' + x + ' we found Os: ' + marks);
     // if a potential win is detected go back in to mark the empty spot.
     if (marks === 2) {
       marks = 0
       for (x = 0; x < 3; x++) {
         if (gameGrid[(0+x)][(0+x)] !== computerMark && gameGrid[(0+x)][(0+x)] !== playerMark) {
           computerWins = true;
-          console.log("I win by diagonal");
           var gridSpot = document.getElementById(gameGrid[(0+x)][(0+x)]);
           markGrid(computerMark, gridSpot.id);
           markSpot(computerMark, gridSpot);
@@ -135,24 +123,19 @@ function scanWin() {
     }
 
   //scans Forward diagonal for potential wins
-  console.log("No winning backslash diagonal found")
   if (marks === 1) marks = 0;
     for (x = 0; x < 3; x++) {
-      console.log("Column scan X is " + x + " Y is " + x + " GRID is " + gameGrid[(0+x)][(0+x)]);
       if (gameGrid[(0+x)][(2-x)]  === computerMark) {
-        console.log("Found an O at " + x + " " + x);
         marks++;
       } 
     }
     if (marks === 1 ) marks = 0;
-    console.log('Working on daigonal ' + x + ' we found Os: ' + marks);
     // if a potential win is detected go back in to mark the empty spot.
     if (marks === 2) {
       marks = 0
       for (x = 0; x < 3; x++) {
         if (gameGrid[(0+x)][(2-x)] !== computerMark && gameGrid[(0+x)][(2-x)] !== playerMark) {
           computerWins = true;
-          console.log("I win by diagonal");
           var gridSpot = document.getElementById(gameGrid[(0+x)][(2-x)]);
           markGrid(computerMark, gridSpot.id);
           markSpot(computerMark, gridSpot);
@@ -167,7 +150,6 @@ function scanWin() {
 function findGridPos (spot) {
   for (x=0; x < 3; x++){
     var y = gameGrid[x].indexOf(spot);
-    console.log("index is " + x + " and " + y);
     if (y !== -1) break; 
   }
   return [x,y];
@@ -175,7 +157,6 @@ function findGridPos (spot) {
 
 function computerTurn (playerspick) {
   var twoFound = false; // two player marks found in any row, column or diagonal
-  console.log("Player picked " + playerspick);
   var x = 0; // grid position
   var y = 0; // grid position
   var pos = playerspick; // pos is an array that contains the indexes of the player's mark. [1,1] is 5 on the visual grid.
@@ -183,21 +164,17 @@ function computerTurn (playerspick) {
   
   if (scanWin()) { console.log('Exiting function because Computer won'); return true;} // scans for wins before next turn. If there's a potential win go for that instead.
   // Check row
-  console.log("Row check")
   for (i = 0; i < 3; i++) {
     if (gameGrid[i][pos[1]] === playerMark) {
       playerMarkCount++;
-      console.log("found an x at " + i + ", " + pos[1]);
     }
   }
-  console.log('Found Xes: ' + playerMarkCount);
   if (playerMarkCount === 2) {
     
     markCount = 0;
     for (i = 0; i < 3; i++) {
       if (gameGrid[i][pos[1]] !== playerMark && gameGrid[i][pos[1]] !== computerMark) {
         twoFound = true;
-        console.log("Empty spot in row is " + gameGrid[i][pos[1]]);
         var gridSpot = document.getElementById(gameGrid[i][pos[1]]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
@@ -212,11 +189,9 @@ function computerTurn (playerspick) {
   // Check column
   if (!twoFound) {
     playerMarkCount = 0;
-    console.log("Column check");
     for (i = 0; i < 3; i++) {
       if (gameGrid[pos[0]][i] === playerMark) {
         playerMarkCount++;
-        console.log("found an x at " + pos[0] + ", " + i);
       }
     }
     if (playerMarkCount === 2) {
@@ -225,7 +200,6 @@ function computerTurn (playerspick) {
       for (i = 0; i < 3; i++) {
         if (gameGrid[pos[0]][i] !== playerMark && gameGrid[pos[0]][i] !== computerMark) {
           twoFound = true;
-          console.log("Empty spot in row is " + gameGrid[pos[0]][i]);
           var gridSpot = document.getElementById(gameGrid[pos[0]][i]);
           markGrid(computerMark, gridSpot.id);
           markSpot(computerMark, gridSpot);
@@ -239,11 +213,9 @@ function computerTurn (playerspick) {
   if (!twoFound && (pos == '0,0' || pos == '1,1' || pos == '2,2')) {
     playerMarkCount = 0;
     
-    console.log("Diagonal forward slash Check");
     for (i = 0; i < 3; i++) {
       if (gameGrid[i][i] === playerMark) {
         playerMarkCount++;
-        console.log("found an x at " + i + ", " + i);
       }
     }
     if (playerMarkCount === 2) {
@@ -251,7 +223,6 @@ function computerTurn (playerspick) {
       playerMarkCount = 0;
       for (i = 0; i < 3; i++) {
         if (gameGrid[i][i] !== playerMark && gameGrid[i][i] !== computerMark) {
-          console.log("Empty spot in row is " + gameGrid[i][i]);
           twoFound = true;
           var gridSpot = document.getElementById(gameGrid[i][i]);
           markGrid(computerMark, gridSpot.id);
@@ -265,11 +236,9 @@ function computerTurn (playerspick) {
   // Check second diagonal
   if (!twoFound && (pos == '0,2' || pos == '1,1' || pos == '2,0')) {
     playerMarkCount = 0;
-    console.log("Diagonal backslash Check");
     for (i = 0; i < 3; i++) {
       if (gameGrid[(0+i)][(2-i)] === playerMark) {
         playerMarkCount++;
-        console.log("found an x at " + (0+i) + ", " + (2-i) );
       }
     }
     if (playerMarkCount === 2) {
@@ -277,7 +246,6 @@ function computerTurn (playerspick) {
       for (i = 0; i < 3; i++) {
         if (gameGrid[(0+i)][(2-i)] !== playerMark && gameGrid[(0+i)][(2-i)] !== computerMark) {
           twoFound = true;
-          console.log("Empty spot in row is " + gameGrid[(0+i)][(2-i)]);
           var gridSpot = document.getElementById(gameGrid[(0+i)][(2-i)]);
           markGrid(computerMark, gridSpot.id);
           markSpot(computerMark, gridSpot);
@@ -292,12 +260,10 @@ function computerTurn (playerspick) {
      tries to get the middle. Otherwise it could go in a clockwise pattern finding a valid and empty spot.
      
      */
-    console.log('Didn"t find in backslash diagonal');
   if (!twoFound) {
     var t = 1;
     x = pos[0];
     y = pos[1];
-    console.log("eerrrrr")
     if (gameGrid[1][1] !== playerMark && gameGrid[1][1] !== computerMark) {
       var gridSpot = document.getElementById(gameGrid[1][1]);
       markGrid(computerMark, gridSpot.id);
@@ -323,7 +289,6 @@ function computerTurn (playerspick) {
       
     // If the corners aren't taken try the regular spots.
     } else if (( y - t > -1 ? gameGrid[x][y-t] : false) && gameGrid[x][y-t] !== playerMark && gameGrid[x][y-t] !== computerMark) {
-      console.log(' Looking for final spots');
       var gridSpot = document.getElementById(gameGrid[x][y-t]);
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
@@ -476,15 +441,12 @@ function markSpot (XorO, gridSpot) {
 function playerTurn (playersMark, gridSpot) {
   
   if (checkGrid(gridSpot.id)) {
-    console.log(gridSpot.id + " is good");
     var playerSpot = findGridPos(gridSpot.id);
     markGrid(playersMark, gridSpot.id)
     markSpot(playersMark, gridSpot);
     
     // detectWin(gameGrid);
     gridMap.remap();
-    console.log(gameGrid);
-    console.log(gridMap);
     // Computer needs to know where player marked.
     computerTurn(playerSpot);
   }
