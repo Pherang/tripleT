@@ -107,7 +107,7 @@ function scanForDraw() {
       }
     }
   }
-  console.log(marks);
+  
   if ( marks === 9) {
     return true;
   }
@@ -245,7 +245,8 @@ function computerTurn (playerspick) {
     x = pos[0];
     y = pos[1];
     var postest = pos.toString();
-    if (postest === '1,1' || postest === '1,0' || postest === '2,1' || postest === '0,1' || postest === '1,2' ) {
+    console.log(postest + ' is here');
+    if (postest === '1,1' || postest === '0,0' || postest === '2,0' || postest === '0,2' || postest === '2,2' ) {
       if (gameGrid[0][0] !== playerMark && gameGrid[0][0] !== computerMark) {
         var gridSpot = document.getElementById(gameGrid[0][0]);
         markGrid(computerMark, gridSpot.id);
@@ -265,18 +266,14 @@ function computerTurn (playerspick) {
         var gridSpot = document.getElementById(gameGrid[0][2]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
-      }
-    }
-    
-    if (postest === '0,0' || postest === '2,0' || postest === '2,2' || postest === '0,2') {
-      // If the corners aren't taken try the regular spots.
+      } else 
+       // If the corners aren't taken try the regular spots.
       if (gameGrid[1][1] !== playerMark && gameGrid[1][1] !== computerMark) {
         var gridSpot = document.getElementById(gameGrid[1][1]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
       // Check if the corners are free
-      } else 
-      if (gameGrid[(x)][(y-1)] && gameGrid[(x)][(y-1)] !== playerMark && gameGrid[(x)][(y-1)] !== computerMark) {
+      } else if (gameGrid[(x)][(y-1)] && gameGrid[(x)][(y-1)] !== playerMark && gameGrid[(x)][(y-1)] !== computerMark) {
         var gridSpot = document.getElementById(gameGrid[(x)][(y-1)]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
@@ -295,9 +292,9 @@ function computerTurn (playerspick) {
       } 
   }
     console.log('Computer chose ' + gridSpot.id) ;
-  
 }
-  
+
+
   gridMap.remap();
 
 } // end computerTurn
