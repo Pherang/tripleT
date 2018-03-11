@@ -3,7 +3,7 @@
 
 <head>
     <link href="https://fonts.googleapis.com/css?family=Bungee+Outline" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Cousine|VT323" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
     <link rel="stylesheet" href="flexboxgrid-6.3.1/dist/flexboxgrid.css">
     <link rel="stylesheet" href="triplet.css">
@@ -13,23 +13,24 @@
 </head>
 
 <body>  
-    
-  <div class="tableTop">
-      
-    <div class="gameBoard">
-      <div id="one" class="boardSpot"></div>
-      <div id="two"   style="color: #18CAE6" class="boardSpot"></div>
-      <div id="three" class="boardSpot"></div>
-      <div id="four"  class="boardSpot"></div>
-      <div id="five"  style="color: #18CAE6" class="boardSpot"></div>
-      <div id="six"   class="boardSpot"></div>
-      <div id="seven" style="color: #18CAE6" class="boardSpot"> </div>
-      <div id="eight" class="boardSpot"></div>
-      <div id="nine" style="color: #18CAE6" class="boardSpot"></div>
-    </div>
-  </div> <!-- end table top -->
-
-
+  <div id="room">  
+      <div class="tableTop">
+          <div id="scoreBoard" class="msgBoard" style="color: orange">Choose your weapon User</div>
+          <div class="gameBoard">
+            <div id="one" class="boardSpot"></div>
+            <div id="two"    class="boardSpot"></div>
+            <div id="three" class="boardSpot"></div>
+            <div id="four"  class="boardSpot"></div>
+            <div id="five"   class="boardSpot"></div>
+            <div id="six"   class="boardSpot"></div>
+            <div id="seven"  class="boardSpot"> </div>
+            <div id="eight" class="boardSpot"></div>
+            <div id="nine"  class="boardSpot"></div>
+        </div>
+      </div> <!-- end table top -->
+    <div id="xTab" class="tab leftTab">X</div>
+    <div id="oTab" class="tab rightTab">O</div>
+</div>
 
 <script src="triplet.js"></script>
 </body>

@@ -8,53 +8,178 @@
 */
 body {
     /*padding-top: 60px;*/
-    font-family: 'Lato', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     background-color: #333333;
+    display: flex;
+    justify-content: center;
+}
+
+#room {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 15%;
+  width: 300px;
+}
+
+.tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #6FC3DF;
+  color: #ffe64d;
+  width: 80px;
+  height: 80px;
+  font-size: 30px;
+}
+
+.leftTab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #6FC3DF;
+  color: #ffe64d;
+  
+  transition: border-color 0.5s ease-in-out, background-color 0.5s ease-in-out, color 0.5s ease-in;
+}
+
+.leftTab:hover {
+  border: 3px solid white;
+  background-color: rgb(62, 71, 80);
+}
+
+.rightTab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #6FC3DF;
+  color: #ffe64d;
+  
+  transition: border-color 0.5s ease-in-out, background-color 0.5s ease-in-out, color 0.5s ease-in;
+}
+
+.rightTab:hover {
+  border: 3px solid white;
+  background-color: rgb(62, 71, 80);
 }
 
 .tableTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border: 5px solid #6FC3DF;
   background-color: black;
   box-shadow: 3px 3px black;
-  margin-left:20%;
-  margin-right:20%
+  margin-left:2%;
+  margin-right:2%;
+  margin-bottom: 5%;
+  width: 280px;
+  height: 300px;
+  
 }
 
-.gameBoard{
+.msgBoard {
+  color: #DF740C;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+.gameBoard {
   border: 3px solid;
   background-color: rgb(62, 71, 80);
+  width: 245px;
+  height: 245px;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
 }
 
 .boardSpot {
   border: 2px solid #6FC3DF;
-  font-size: 50px;
+  font-size: 25px;
   justify-content: center;
   display: flex;
   align-items: center;
-  color: #DF740C; 
+  color: rgb(62, 71, 80);
+  transition: background-color 0.5s ease-in-out, border-width 0.5s ease-in-out, color 0.5s ease-in;
 }
 
-@media only screen and (min-width: 400px) {
+.boardSpot:hover {
+  background-color: rgb(151, 151, 151);
+  border-width: 4px;
+}
+
+.userColour {
+  color: #6fc3df;
+  opacity: 1;
+
+}
+
+.computerColour {
+  color: #DF740C;
+  opacity: 1;
+}
+
+@media only screen and (min-width: 600px) {
     
-    .tableTop {
-      width: 400px;
-      height: 440px;
-      margin-top: 100px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+  #room {
+    margin-top: 0px;
     
-    .gameBoard {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      /*grid-auto-columns: 115px;
-      grid-auto-rows: 115px;*/
-      width: 350px;
-      height: 350px;
-      margin-top: 40px;
-      margin-left: 20px;
-      margin-right: 20px;
-      /*padding: 20px;*/
-    }
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .tableTop {
+    order: 2;
+    width: 400px;
+    height: 440px;
+    margin-top: 100px;
+    margin-bottom: 145px;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .gameBoard {
+    
+    /*grid-auto-columns: 115px;
+    grid-auto-rows: 115px;*/
+    width: 350px;
+    height: 350px;
+    margin-top: 10px;
+
+    margin-left: 20px;
+    margin-right: 20px;
+    /*padding: 20px;*/
+  }
+
+  .boardSpot {
+    font-size: 50px;
+  }
+
+  .tab {
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+  }
+
+  .msgBoard {
+    font-size: 24px;
+  }
+
+  .leftTab {
+    order: 1;
+  }
+
+  .rightTab {
+    order: 3;
+  }
+
 }

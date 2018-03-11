@@ -1,63 +1,123 @@
-/* 
-* Computer should check to see if the user has selected two numbers in any of the valid wins for the X they just marked.
-* If the user has then the computer selects the third number that the user needs to win.
-* If the user hasn't selected any two in a row then the computer checks to see if it has any two in a row.
-* If it does then it tries to select the third number to win.
-* If the computer doesn't have two in a row then it selects a number to build toward three in a row.
-* 
-*/
+// Scan to see if computer has won.
+function scanWin() {
+  ("Running scan win")
+  marks = 0;
+  var computerWins = false;
+  
+  // scan rows for double computerMarks
+  for (y = 0; y < 3; y++) {
+    for (x = 0; x < 3; x++) {
+      if (gameGrid[x][y] === computerMark) {
+        ("Row scan X is " + x + " Y is " + y + " GRID is " + gameGrid[x][y]);
+        marks++;
+      }
+    }
+    (marks)
+    if (marks === 1) marks = 0;
+    // if a potential win is detected go back in to mark the empty spot.
+    if (marks === 2) {
+      marks = 0;
+      for (x = 0; x < 3; x++) {
+        if (gameGrid[x][y] !== computerMark && gameGrid[x][y] !== playerMark) {
+          computerWins = true;
+          var gridSpot = document.getElementById(gameGrid[x][y]);
+          markGrid(computerMark, gridSpot.id);
+          markSpot(computerMark, gridSpot);
+        }
+      }
+    }
+    if (computerWins) return computerWins;
+  }
 
-/*
-  User picks a spot with label five.
-  We need to find find five in the grid.
-  But if five is already taken then we can't find it.
+  //scans columns for potential wins
+  for (x = 0; x < 3; x++) {
+    for (y = 0; y < 3; y++) {
+      if (gameGrid[x][y]  === computerMark) {
+        marks++;
+      } 
+    }
+    if (marks === 1 ) marks = 0;
+    // if a potential win is detected go back in to mark the empty spot.
+    if (marks === 2) {
+      marks = 0
+      for (y = 0; y < 3; y++) {
+        if (gameGrid[x][y] !== computerMark && gameGrid[x][y] !== playerMark) {
+          computerWins = true;
+          var gridSpot = document.getElementById(gameGrid[x][y]);
+          markGrid(computerMark, gridSpot.id);
+          markSpot(computerMark, gridSpot);
+        }
+      }
+    }
+    if (computerWins) return computerWins;
+  }
 
-  If we can find it because the computer hasn't picked it yet then we can choose it.
-  After we choose it the computer needs to check what we picked and counter it.
-  How will the computer know what we picked in the grid?
+  //scans backslash diagonal for potential wins
+  if (marks === 1) marks = 0;
+    for (x = 0; x < 3; x++) {
+      if (gameGrid[(0+x)][(0+x)]  === computerMark) {
+        marks++;
+      } 
+    }
+    if (marks === 1 ) marks = 0;
+    // if a potential win is detected go back in to mark the empty spot.
+    if (marks === 2) {
+      marks = 0
+      for (x = 0; x < 3; x++) {
+        if (gameGrid[(0+x)][(0+x)] !== computerMark && gameGrid[(0+x)][(0+x)] !== playerMark) {
+          computerWins = true;
+          var gridSpot = document.getElementById(gameGrid[(0+x)][(0+x)]);
+          markGrid(computerMark, gridSpot.id);
+          markSpot(computerMark, gridSpot);
+        }
+      }
+      if (computerWins) return computerWins;
+    }
 
-  We can tell it explicitly by sending players pick to the function below.
-  this function will then run some predefined checks for that position.
-  there are nine positions to check.
-  27 checks to do. 
-
-  It seems like we need to define a few checks only and run those when needed.
-  E.g. a row check for the spot the player picked, a column check, and where applicable a diagonal.
-  There's no need to each row, column, and diagonal check.
-  We can define a function that checks the row that the player picked whatever the player picked.
-  There are five positions that needs a diagonal check. 0,0 1,1, 2,2, 0,2, 2,0
-  The rest of the positions only need a row column check.
-
-  The problem with the current program is that I have to define nine positions to check
-  AND all the row, column, diagonals to check. It seems unelegant.
-
-  The computer then only needs to know the indexes of what the player picked and not the spot to be translated.
-  The first step then is to figure out where in the array the player marked.
-  It sounds like I might need to send the grid coordinates to the computer instead of a string.
-  I might then need to store these coordinates first before calling computerTurn.
-
-  The looping algorithm to check a spot would be:
-
-  Freeze the X and check all the Ys.
-  Freeze the Y and check all the Xs
-
-  [0,1]
-
-  We would check column [0][0-3]
-  We would check row    [0-3][1]
-*/
-
-function checkRowOne () {
-  if (gameGrid[0][0] === playerMark) {}
+  //scans Forward diagonal for potential wins
+  if (marks === 1) marks = 0;
+    for (x = 0; x < 3; x++) {
+      if (gameGrid[(0+x)][(2-x)]  === computerMark) {
+        marks++;
+      } 
+    }
+    if (marks === 1 ) marks = 0;
+    // if a potential win is detected go back in to mark the empty spot.
+    if (marks === 2) {
+      marks = 0
+      for (x = 0; x < 3; x++) {
+        if (gameGrid[(0+x)][(2-x)] !== computerMark && gameGrid[(0+x)][(2-x)] !== playerMark) {
+          computerWins = true;
+          var gridSpot = document.getElementById(gameGrid[(0+x)][(2-x)]);
+          markGrid(computerMark, gridSpot.id);
+          markSpot(computerMark, gridSpot);
+        }
+      }
+      if (computerWins) return computerWins;
+    }
+    
 }
-// Computer needs to check where the player marked and then see if there is another mark
-// in the same row, column, or diagonal. 
+
+function scanForDraw() {
+  var marks = 0;
+  for (x = 0; x < 3; x++) {
+    for (y = 0; y < 3; y++) {
+      if (gameGrid[x][y] === computerMark || gameGrid[x][y] === playerMark) {
+        marks++;
+      }
+    }
+  }
+  console.log(marks);
+  if ( marks === 9) {
+    return true;
+  }
+  return false;
+}
 
 // finds the position that the player picked.
 function findGridPos (spot) {
   for (x=0; x < 3; x++){
     var y = gameGrid[x].indexOf(spot);
-    console.log("index is " + x + " and " + y);
     if (y !== -1) break; 
   }
   return [x,y];
@@ -65,108 +125,184 @@ function findGridPos (spot) {
 
 function computerTurn (playerspick) {
   var twoFound = false; // two player marks found in any row, column or diagonal
-  console.log("Player picked " + playerspick);
   var x = 0; // grid position
   var y = 0; // grid position
   var pos = playerspick; // pos is an array that contains the indexes of the player's mark. [1,1] is 5 on the visual grid.
+  var playerMarkCount = 0;
   
-  console.log(pos);
-  switch (pos) {
-
-    case '0,0':  // If player picked one we need to check the row, column and diagonal along one.
-      console.log(gameGrid[pos[0]][pos[1]]);
-      // Check the first row.
-      var markCount = 0;
-      // Check the row for X's
-      for (i = 0; i < 3; i++) {
-        if (gameGrid[i][0] === playerMark) {
-          console.log("X's found at " + i + "[0]");
-          console.log("row check");
-          markCount++;
-        }
-      }
-      console.log(markCount);
-      if (markCount === 2) {
+  if (scanWin()) { 
+    scoreBoard.textContent = "Sark Wins!"
+    freezeBoard();
+    setTimeout(initGame, 2500, 'reset');
+    return true;
+  }
+  if (scanForDraw()) {
+    scoreBoard.textContent = "Draw! Impressive User.."
+    freezeBoard();
+    setTimeout(initGame, 2500, 'reset');
+    return true;
+  } 
+  // Check row
+  for (i = 0; i < 3; i++) {
+    if (gameGrid[i][pos[1]] === playerMark) {
+      playerMarkCount++;
+    }
+  }
+  if (playerMarkCount === 2) {
+    
+    markCount = 0;
+    for (i = 0; i < 3; i++) {
+      if (gameGrid[i][pos[1]] !== playerMark && gameGrid[i][pos[1]] !== computerMark) {
         twoFound = true;
-        for (i = 0; i < 3; i++) {
-          if (gameGrid[i][0] !== computerMark && gameGrid[i][0] !== playerMark ) {
-            gridLoc = document.getElementById(gameGrid[i][0]); // We store the original value which was a string representing the spot on the grid. e.g. two, five, seven
-            
-            console.log(gridLoc);
-            markGrid(computerMark, gridLoc.id)
-            markSpot(computerMark, gridLoc);
-            // detectWin(gameGrid);
-            gridMap.remap();
-            console.log(gameGrid);
-            console.log(gridMap);
-            
-          }
-        }
-        
+        var gridSpot = document.getElementById(gameGrid[i][pos[1]]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+        ('computerColour');
+        break;
+    // detectWin(gameGrid);
+    gridMap.remap();
+      } 
+    }
+
+  }
+  
+  // Check column
+  if (!twoFound) {
+    playerMarkCount = 0;
+    for (i = 0; i < 3; i++) {
+      if (gameGrid[pos[0]][i] === playerMark) {
+        playerMarkCount++;
       }
-      markCount = 0;
-      // Check the column for X's
-      if (!twoFound) {
-        for (i = 0; i < 3; i++) {
-          if (gameGrid[0][i] === playerMark) {
-            console.log("X's found at " + i + "[0]");
-            console.log("column check");
-            markCount++;
-          }
+    }
+    if (playerMarkCount === 2) {
+      
+      playerMarkCount = 0;
+      for (i = 0; i < 3; i++) {
+        if (gameGrid[pos[0]][i] !== playerMark && gameGrid[pos[0]][i] !== computerMark) {
+          twoFound = true;
+          var gridSpot = document.getElementById(gameGrid[pos[0]][i]);
+          markGrid(computerMark, gridSpot.id);
+          markSpot(computerMark, gridSpot);
+          break;
+        } 
+      }
+  
+    }
+  }
+  // Specific cases check diagonal 0,0 0,2 2,0 2,2 1,1
+  if (!twoFound && (pos == '0,0' || pos == '1,1' || pos == '2,2')) {
+    playerMarkCount = 0;
+    
+    for (i = 0; i < 3; i++) {
+      if (gameGrid[i][i] === playerMark) {
+        playerMarkCount++;
+      }
+    }
+    if (playerMarkCount === 2) {
+      
+      playerMarkCount = 0;
+      for (i = 0; i < 3; i++) {
+        if (gameGrid[i][i] !== playerMark && gameGrid[i][i] !== computerMark) {
+          twoFound = true;
+          var gridSpot = document.getElementById(gameGrid[i][i]);
+          markGrid(computerMark, gridSpot.id);
+          markSpot(computerMark, gridSpot);
+          break;
+        } 
+      }
+  
+    }
+  }
+  // Check second diagonal
+  if (!twoFound && (pos == '0,2' || pos == '1,1' || pos == '2,0')) {
+    playerMarkCount = 0;
+    for (i = 0; i < 3; i++) {
+      if (gameGrid[(0+i)][(2-i)] === playerMark) {
+        playerMarkCount++;
+      }
+    }
+    if (playerMarkCount === 2) {
+      playerMarkCount = 0;
+      for (i = 0; i < 3; i++) {
+        if (gameGrid[(0+i)][(2-i)] !== playerMark && gameGrid[(0+i)][(2-i)] !== computerMark) {
+          twoFound = true;
+          var gridSpot = document.getElementById(gameGrid[(0+i)][(2-i)]);
+          markGrid(computerMark, gridSpot.id);
+          markSpot(computerMark, gridSpot);
+          break;
         }
-        if (markCount === 2) {
-          for (i = 0; i < 3; i++) {
-            if (gameGrid[0][i] !== computerMark && gameGrid[i][0] !== playerMark ) {
-              gridLoc = document.getElementById(gameGrid[i][0]); // We store the original value which was a string representing the spot on the grid. e.g. two, five, seven
-              
-              console.log(gridLoc);
-              markGrid(computerMark, gridLoc.id)
-              markSpot(computerMark, gridLoc);
-              // detectWin(gameGrid);
-              gridMap.remap();
-              console.log(gameGrid);
-              console.log(gridMap);
-              
-            }
-          }
-        }
-      } // end of column search
-      break;
-    case 'two':
-   
-      break;
-      case 'three':
-   
-      break;
+      }
+  
+    }
   }
 
+  /* If there are no two in a rows after checking row column and diagonal then the computer 
+     tries to get the middle. Otherwise it could go in a clockwise pattern finding a valid and empty spot.
+     
+     */
+  if (!twoFound) {
+    var t = 1;
+    x = pos[0];
+    y = pos[1];
+    var postest = pos.toString();
+    if (postest === '1,1' || postest === '1,0' || postest === '2,1' || postest === '0,1' || postest === '1,2' ) {
+      if (gameGrid[0][0] !== playerMark && gameGrid[0][0] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[0][0]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } else if (gameGrid[2][0] !== playerMark && gameGrid[2][0] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[2][0]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+        console.log('Tried top right');
+      } else if (gameGrid[2][2] !== playerMark && gameGrid[2][2] !== computerMark) {
+        
+        var gridSpot = document.getElementById(gameGrid[2][2]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+        console.log('tried ' + gridSpot.id);
+      } else if (gameGrid[0][2] !== playerMark && gameGrid[0][2] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[0][2]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      }
+    }
+    
+    if (postest === '0,0' || postest === '2,0' || postest === '2,2' || postest === '0,2') {
+      // If the corners aren't taken try the regular spots.
+      if (gameGrid[1][1] !== playerMark && gameGrid[1][1] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[1][1]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      // Check if the corners are free
+      } else 
+      if (gameGrid[(x)][(y-1)] && gameGrid[(x)][(y-1)] !== playerMark && gameGrid[(x)][(y-1)] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[(x)][(y-1)]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } else if (gameGrid[(x+1)] && gameGrid[(x+1)][y] !== playerMark && gameGrid[(x+1)][y] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[(x+1)][y]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } else if (gameGrid[(x)][(y+1)] && gameGrid[(x)][(y+1)] !== playerMark && gameGrid[(x)][(y+1)] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[(x)][(y+1)]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } else if (gameGrid[(x-1)] && gameGrid[(x-1)][y] !== playerMark && gameGrid[(x-1)][y] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[(x-1)][y]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } 
+  }
+    console.log('Computer chose ' + gridSpot.id) ;
+  
 }
+  
+  gridMap.remap();
 
-/* 
-* Need some way of translating or tracking the positions 
-*
-* [0][0] [1][0] [2][0]   one two three
-* [0][1] [1][1] [2][1] = four five six 
-* [0][2] [1][2] [2][2]   seven eight nine
-* 
-* An array might not be the best for this actually.
-* It might be better as an object..
-* Looks like I need both for different reasons.
-*
-* What if it was eight arrays?
-* [one,two,three]
-* [four,five,six]
-* [seven,eight,nine]
-*
-* [one,four,seven]
-* [two,five,eight]
-* [three,six,nine]
-*
-* [one,five,nine]
-* [three,five,six]
-*
-*
-*/
+} // end computerTurn
+
+
 var gameGrid = [['one','four','seven'],['two','five','eight'],['three','six','nine']];
 
 // grid positions are used in many functions so its useful to have it defined in one place.
@@ -194,14 +330,6 @@ var gridMap = {
 }
 
 /*
-* Need to allow user to pick X or O. If user picks one the computer is the other.
-*/
-
-/*
-* Need a way to detect board is full
-*/
-
-/*
 * Need a way to detect a win
 * Valid wins: 123 ,456, 789, 147, 258, 369, 159, 357, 
 */
@@ -217,7 +345,6 @@ function detectWin(boardObject){
 * Need function to translate visual grid spots to locations in array gameGrid
 * Function takes an Element ID as it's spot.
 */
-
 function markGrid (XorO,spot) {
   
   switch (spot) {
@@ -258,14 +385,52 @@ function checkGrid (spot) {
       }
 }
 
+/* Player chooses X or O */
+var playerMark;
+var computerMark;
+
+function chooseWeapon () {
+  if (this.id === 'xTab') {
+    leftTab.classList.add('userColour');
+    rightTab.classList.add('computerColour');
+    playerMark = 'X'; 
+    computerMark = 'O';
+  }
+  if (this.id === 'oTab') {
+    rightTab.classList.add('userColour');
+    leftTab.classList.add('computerColour');
+    playerMark = 'O'; 
+    computerMark = 'X';
+  }
+  console.log('Player has chosen ' + playerMark);
+  console.log('Computer has chosen ' + computerMark);
+
+  setupBoard();
+}
+
 /*
 * Need a  way to mark the board.
 */
-playerMark = 'X';
-computerMark = 'O';
 
 function markSpot (XorO, gridSpot) {
+  
+  console.log(XorO + ' is the mark');
+    console.log(gridSpot.id + ' is the spot');
+  if (XorO === computerMark) {
+    console.log('Computer\'s turn')
+    gridSpot.classList.remove('userColour')
+    gridSpot.classList.add('computerColour');
+    
+  }
+  if (XorO === playerMark) {
+    console.log('User\'s turn')
+    gridSpot.classList.add('userColour')
+    gridSpot.classList.remove('computerColour');
+  }
+
   gridSpot.textContent = XorO;
+  console.log(gridSpot.classList);  
+  console.log('NEW CLICK AFTER THIS');
 }
 
 // function marks the visual grid and calls a function to mark the logical grid that is tracking the game.
@@ -273,17 +438,14 @@ function markSpot (XorO, gridSpot) {
 function playerTurn (playersMark, gridSpot) {
   
   if (checkGrid(gridSpot.id)) {
-    console.log(gridSpot.id + " is good");
     var playerSpot = findGridPos(gridSpot.id);
     markGrid(playersMark, gridSpot.id)
     markSpot(playersMark, gridSpot);
     
     // detectWin(gameGrid);
     gridMap.remap();
-    console.log(gameGrid);
-    console.log(gridMap);
     // Computer needs to know where player marked.
-    computerTurn(playerSpot);
+    setTimeout(computerTurn, 400, playerSpot);
   }
 
 }
@@ -299,16 +461,69 @@ var seven = document.getElementById('seven');
 var eight = document.getElementById('eight');
 var nine = document.getElementById('nine');
 
-// Passes 'this' so that the markSpot and markGrid functions knows which grid location to update.
-one.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-two.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-three.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-four.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-five.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-six.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-seven.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-eight.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
-nine.addEventListener('click', function () { playerTurn(playerMark,this); }, false );
+function gridClicked () {
+  playerTurn(playerMark,this);
+}
 
-console.log(gameGrid.indexOf('one'));
+function setupBoard () {
+  // Passes 'this' so that the markSpot and markGrid functions knows which grid location to update.
+  scoreBoard.textContent = 'Can You Win User?'
+  one.addEventListener('click', gridClicked, false );
+  two.addEventListener('click', gridClicked, false );
+  three.addEventListener('click', gridClicked, false );
+  four.addEventListener('click', gridClicked, false );
+  five.addEventListener('click', gridClicked, false );
+  six.addEventListener('click', gridClicked, false );
+  seven.addEventListener('click', gridClicked, false );
+  eight.addEventListener('click', gridClicked, false );
+  nine.addEventListener('click', gridClicked, false );
 
+  // Freeze the weapon buttons
+  leftTab.removeEventListener('click',  chooseWeapon, false );
+  rightTab.removeEventListener('click', chooseWeapon, false );
+}
+
+function freezeBoard () {
+  // Passes 'this' so that the markSpot and markGrid functions knows which grid location to update.
+  console.log('Shutting board down');
+  one.removeEventListener('click', gridClicked, false );
+  two.removeEventListener('click', gridClicked, false );
+  three.removeEventListener('click', gridClicked, false );
+  four.removeEventListener('click', gridClicked, false );
+  five.removeEventListener('click', gridClicked, false );
+  six.removeEventListener('click', gridClicked, false );
+  seven.removeEventListener('click', gridClicked, false );
+  eight.removeEventListener('click', gridClicked, false );
+  nine.removeEventListener('click', gridClicked, false );
+}
+
+// User needs to be able to choose X or O 
+var leftTab = document.getElementById('xTab');
+var rightTab = document.getElementById('oTab');
+
+var scoreBoard = document.getElementById('scoreBoard');
+
+function initGame (reset) {
+
+  scoreBoard.textContent = 'Can you win User?'
+  gameGrid = [['one','four','seven'],['two','five','eight'],['three','six','nine']];
+  [one,two,three,four,five,six,seven,eight,nine].forEach( function (id) { 
+    id.textContent = ''; 
+    id.classList.remove('userColour');
+    id.classList.remove('computerColour'); 
+  });
+  gridMap.remap();
+  
+  if (reset === 'reset') {
+    setupBoard();
+  }
+
+  if (reset !== 'reset') { // not a reset then do this. not a reset would be the first time only.
+    scoreBoard.textContent = "Choose your weapon User"
+    leftTab.addEventListener('click',  chooseWeapon, false );
+    rightTab.addEventListener('click', chooseWeapon, false );  
+  }
+  
+}
+
+window.onload = initGame;
