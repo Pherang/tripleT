@@ -11,3 +11,5 @@ Live version hosted at *https://codepen.io/Pherang/full/WzbNyr?editors=0100*
 
 Learned more about Flexbox, Grid, CSS transitions, and quite a bit of Javascript thanks to this project.
 Layout is also responsive and changes on mobile.
+
+The ai isn't unbeatable at this point.. still working on that. I like to think it's kind of tough to beat though.
