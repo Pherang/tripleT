@@ -246,8 +246,7 @@ function computerTurn (playerspick) {
     y = pos[1];
     var postest = pos.toString();
     console.log(postest + ' is here');
-    if (postest === '1,1' || postest === '0,0' || postest === '2,0' || postest === '0,2' || postest === '2,2' ) {
-      if (gameGrid[0][0] !== playerMark && gameGrid[0][0] !== computerMark) {
+    if (gameGrid[0][0] !== playerMark && gameGrid[0][0] !== computerMark) {
         var gridSpot = document.getElementById(gameGrid[0][0]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
@@ -266,37 +265,41 @@ function computerTurn (playerspick) {
         var gridSpot = document.getElementById(gameGrid[0][2]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
-      } else 
-       // If the corners aren't taken try the regular spots.
-      if (gameGrid[1][1] !== playerMark && gameGrid[1][1] !== computerMark) {
+      } else if (gameGrid[1][1] !== playerMark && gameGrid[1][1] !== computerMark) {
         var gridSpot = document.getElementById(gameGrid[1][1]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
       // Check if the corners are free
-      } else if (gameGrid[(x)][(y-1)] && gameGrid[(x)][(y-1)] !== playerMark && gameGrid[(x)][(y-1)] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[(x)][(y-1)]);
+      }   // If the corners aren't taken try the regular spots.
+       else if (gameGrid[1][0] !== playerMark && gameGrid[1][0] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[1][0]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
-      } else if (gameGrid[(x+1)] && gameGrid[(x+1)][y] !== playerMark && gameGrid[(x+1)][y] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[(x+1)][y]);
+      } else if (gameGrid[2][1] !== playerMark && gameGrid[2][1] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[2][1]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
-      } else if (gameGrid[(x)][(y+1)] && gameGrid[(x)][(y+1)] !== playerMark && gameGrid[(x)][(y+1)] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[(x)][(y+1)]);
+      } else if (gameGrid[1][2] !== playerMark && gameGrid[1][2] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[1][2]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
-      } else if (gameGrid[(x-1)] && gameGrid[(x-1)][y] !== playerMark && gameGrid[(x-1)][y] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[(x-1)][y]);
+      } else if (gameGrid[0][1] !== playerMark && gameGrid[0][1] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[0][1]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
-      } 
-  }
+      }
+  
     console.log('Computer chose ' + gridSpot.id) ;
-}
+    }
 
 
   gridMap.remap();
-
+  if (scanForDraw()) {
+    setTimeout(function () {scoreBoard.textContent = "Draw! Impressive User..";},1000);
+    freezeBoard();
+    setTimeout(initGame, 2500, 'reset');
+    return true;
+  }    
 } // end computerTurn
 
 
@@ -398,6 +401,7 @@ function chooseWeapon () {
     leftTab.classList.add('computerColour');
     playerMark = 'O'; 
     computerMark = 'X';
+    setTimeout(computerTurn, 400, [0,0]);
   }
   console.log('Player has chosen ' + playerMark);
   console.log('Computer has chosen ' + computerMark);
@@ -426,8 +430,6 @@ function markSpot (XorO, gridSpot) {
   }
 
   gridSpot.textContent = XorO;
-  console.log(gridSpot.classList);  
-  console.log('NEW CLICK AFTER THIS');
 }
 
 // function marks the visual grid and calls a function to mark the logical grid that is tracking the game.
@@ -497,7 +499,6 @@ function freezeBoard () {
 // User needs to be able to choose X or O 
 var leftTab = document.getElementById('xTab');
 var rightTab = document.getElementById('oTab');
-
 var scoreBoard = document.getElementById('scoreBoard');
 
 function initGame (reset) {
@@ -511,15 +512,22 @@ function initGame (reset) {
   });
   gridMap.remap();
   
-  if (reset === 'reset') {
-    setupBoard();
-  }
-
-  if (reset !== 'reset') { // not a reset then do this. not a reset would be the first time only.
-    scoreBoard.textContent = "Choose your weapon User"
+  //if (reset !== 'reset') { // not a reset then do this. not a reset would be the first time only.
+   scoreBoard.textContent = "Choose your weapon User"
+    leftTab.classList.remove('userColour');
+    leftTab.classList.remove('computerColour');
+    leftTab.classList.add('neutralColour');
+    leftTab.textContent = 'X';
+    rightTab.classList.remove('userColour');
+    rightTab.classList.remove('computerColour');
+    rightTab.classList.add('neutralColour');
+    rightTab.textContent = 'O';
     leftTab.addEventListener('click',  chooseWeapon, false );
     rightTab.addEventListener('click', chooseWeapon, false );  
-  }
+
+    console.log(rightTab.classList);
+    console.log(leftTab.classList);
+  //}
   
 }
 

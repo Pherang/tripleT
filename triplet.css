@@ -116,6 +116,10 @@ body {
   border-width: 4px;
 }
 
+.neutralColour {
+  color: #ffe64d;
+  
+}
 .userColour {
   color: #6fc3df;
   opacity: 1;
