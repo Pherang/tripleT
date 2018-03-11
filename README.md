@@ -1,7 +1,7 @@
 # Tic Tac Toe Tron  
 A Tic Tac Toe game with a Tron theme.
 
-Game will allow player to choose between X and O
+Game will allow player to choose between X and O.
 Game should not let player win. Player can get a draw at best. Have play tested with people and the ai seems unbeatable. Let me know if it is though and I'll try rewriting it.
 Game restarts as soon as current game is completed.
 
