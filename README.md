@@ -9,4 +9,4 @@ Game restarts as soon as current game is completed.
 
 Live version hosted at *https://codepen.io/Pherang/full/WzbNyr?editors=0100*
 
-Project sent me off to learn more about Flexbox, Grid, CSS transitions, and quite a bit of Javascript.
+Learned more about Flexbox, Grid, CSS transitions, and quite a bit of Javascript thanks to this project.
