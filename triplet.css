@@ -15,8 +15,9 @@ body {
 #room {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /*align-items: center;*/
   margin-top: 30%;
 }
 
@@ -26,9 +27,9 @@ body {
   align-items: center;
   border: 3px solid #6FC3DF;
   color: #ffe64d;
-  width: 50px;
-  height: 50px;
-  font-size: 25px;
+  width: 80px;
+  height: 80px;
+  font-size: 30px;
 }
 
 .leftTab {
@@ -38,7 +39,7 @@ body {
   border: 3px solid #6FC3DF;
   color: #ffe64d;
   
-  transition: border-color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+  transition: border-color 0.5s ease-in-out, background-color 0.5s ease-in-out, color 0.5s ease-in;
 }
 
 .leftTab:hover {
@@ -53,7 +54,7 @@ body {
   border: 3px solid #6FC3DF;
   color: #ffe64d;
   
-  transition: border-color 0.5s ease-in-out, background-color 0.5s ease-in-out;
+  transition: border-color 0.5s ease-in-out, background-color 0.5s ease-in-out, color 0.5s ease-in;
 }
 
 .rightTab:hover {
@@ -72,8 +73,8 @@ body {
   margin-left:2%;
   margin-right:2%;
   margin-bottom: 5%;
-  width: 200px;
-  height: 220px;
+  width: 230px;
+  height: 250px;
   
 }
 
@@ -82,14 +83,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .gameBoard {
   border: 3px solid;
   background-color: rgb(62, 71, 80);
-  width: 175px;
-  height: 175px;
+  width: 195px;
+  height: 195px;
   margin-top: 5px;
   margin-left: 10px;
   margin-right: 10px;
@@ -104,8 +105,8 @@ body {
   justify-content: center;
   display: flex;
   align-items: center;
-  color: #DF740C; 
-  transition: all 0.5s ease-in-out;
+  color: rgb(62, 71, 80);
+  transition: background-color 0.5s ease-in-out, border-width 0.5s ease-in-out, color 0.5s ease-in;
 }
 
 .boardSpot:hover {
@@ -113,13 +114,28 @@ body {
   border-width: 4px;
 }
 
+.userColour {
+  color: #6fc3df;
+  opacity: 1;
+
+}
+
+.computerColour {
+  color: #DF740C;
+  opacity: 1;
+}
+
 @media only screen and (min-width: 500px) {
     
   #room {
     margin-top: 0px;
+    flex-wrap: none;
+    justify-content: center;
+    align-items: center;
   }
 
   .tableTop {
+    order: 2;
     width: 400px;
     height: 440px;
     margin-top: 100px;
@@ -153,6 +169,14 @@ body {
 
   .msgBoard {
     font-size: 24px;
+  }
+
+  .leftTab {
+    order: 1;
+  }
+
+  .rightTab {
+    order: 3;
   }
 
 }

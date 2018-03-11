@@ -133,13 +133,13 @@ function computerTurn (playerspick) {
   if (scanWin()) { 
     scoreBoard.textContent = "Sark Wins!"
     freezeBoard();
-    setTimeout(initGame, 2500);
+    setTimeout(initGame, 2500, 'reset');
     return true;
   }
   if (scanForDraw()) {
     scoreBoard.textContent = "Draw! Impressive User.."
     freezeBoard();
-    setTimeout(initGame, 2500);
+    setTimeout(initGame, 2500, 'reset');
     return true;
   } 
   // Check row
@@ -157,6 +157,7 @@ function computerTurn (playerspick) {
         var gridSpot = document.getElementById(gameGrid[i][pos[1]]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
+        ('computerColour');
         break;
     // detectWin(gameGrid);
     gridMap.remap();
@@ -242,7 +243,7 @@ function computerTurn (playerspick) {
   if (!twoFound) {
     var t = 1;
     x = pos[0];
-    y = pos[0];
+    y = pos[1];
     var postest = pos.toString();
     if (postest === '1,1' || postest === '1,0' || postest === '2,1' || postest === '0,1' || postest === '1,2' ) {
       if (gameGrid[0][0] !== playerMark && gameGrid[0][0] !== computerMark) {
@@ -275,20 +276,20 @@ function computerTurn (playerspick) {
         markSpot(computerMark, gridSpot);
       // Check if the corners are free
       } else 
-      if (gameGrid[1][0] !== playerMark && gameGrid[1][0] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[1][0]);
+      if (gameGrid[(x)][(y-1)] && gameGrid[(x)][(y-1)] !== playerMark && gameGrid[(x)][(y-1)] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[(x)][(y-1)]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
-      } else if (gameGrid[2][1] !== playerMark && gameGrid[2][1] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[2][1]);
+      } else if (gameGrid[(x+1)] && gameGrid[(x+1)][y] !== playerMark && gameGrid[(x+1)][y] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[(x+1)][y]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
-      } else if (gameGrid[1][2] !== playerMark && gameGrid[1][2] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[1][2]);
+      } else if (gameGrid[(x)][(y+1)] && gameGrid[(x)][(y+1)] !== playerMark && gameGrid[(x)][(y+1)] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[(x)][(y+1)]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
-      } else if (gameGrid[0][1] !== playerMark && gameGrid[0][1] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[0][1]);
+      } else if (gameGrid[(x-1)] && gameGrid[(x-1)][y] !== playerMark && gameGrid[(x-1)][y] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[(x-1)][y]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
       } 
@@ -296,6 +297,7 @@ function computerTurn (playerspick) {
     console.log('Computer chose ' + gridSpot.id) ;
   
 }
+  
   gridMap.remap();
 
 } // end computerTurn
@@ -389,15 +391,20 @@ var computerMark;
 
 function chooseWeapon () {
   if (this.id === 'xTab') {
+    leftTab.classList.add('userColour');
+    rightTab.classList.add('computerColour');
     playerMark = 'X'; 
     computerMark = 'O';
   }
   if (this.id === 'oTab') {
+    rightTab.classList.add('userColour');
+    leftTab.classList.add('computerColour');
     playerMark = 'O'; 
     computerMark = 'X';
   }
   console.log('Player has chosen ' + playerMark);
   console.log('Computer has chosen ' + computerMark);
+
   setupBoard();
 }
 
@@ -406,7 +413,24 @@ function chooseWeapon () {
 */
 
 function markSpot (XorO, gridSpot) {
+  
+  console.log(XorO + ' is the mark');
+    console.log(gridSpot.id + ' is the spot');
+  if (XorO === computerMark) {
+    console.log('Computer\'s turn')
+    gridSpot.classList.remove('userColour')
+    gridSpot.classList.add('computerColour');
+    
+  }
+  if (XorO === playerMark) {
+    console.log('User\'s turn')
+    gridSpot.classList.add('userColour')
+    gridSpot.classList.remove('computerColour');
+  }
+
   gridSpot.textContent = XorO;
+  console.log(gridSpot.classList);  
+  console.log('NEW CLICK AFTER THIS');
 }
 
 // function marks the visual grid and calls a function to mark the logical grid that is tracking the game.
@@ -479,13 +503,27 @@ var rightTab = document.getElementById('oTab');
 
 var scoreBoard = document.getElementById('scoreBoard');
 
-function initGame () {
-  scoreBoard.textContent = "Choose your weapon User"
-  leftTab.addEventListener('click',  chooseWeapon, false );
-  rightTab.addEventListener('click', chooseWeapon, false );  
+function initGame (reset) {
+
+  scoreBoard.textContent = 'Can you win User?'
   gameGrid = [['one','four','seven'],['two','five','eight'],['three','six','nine']];
-  [one,two,three,four,five,six,seven,eight,nine].forEach( function (id) { id.textContent = ''; } );
+  [one,two,three,four,five,six,seven,eight,nine].forEach( function (id) { 
+    id.textContent = ''; 
+    id.classList.remove('userColour');
+    id.classList.remove('computerColour'); 
+  });
   gridMap.remap();
+  
+  if (reset === 'reset') {
+    setupBoard();
+  }
+
+  if (reset !== 'reset') { // not a reset then do this. not a reset would be the first time only.
+    scoreBoard.textContent = "Choose your weapon User"
+    leftTab.addEventListener('click',  chooseWeapon, false );
+    rightTab.addEventListener('click', chooseWeapon, false );  
+  }
+  
 }
 
 window.onload = initGame;
