@@ -8,8 +8,10 @@
 */
 body {
     /*padding-top: 60px;*/
-    font-family: 'Lato', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     background-color: #333333;
+    display: flex;
+    justify-content: center;
 }
 
 #room {
@@ -17,8 +19,8 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
-  /*align-items: center;*/
-  margin-top: 30%;
+  margin-top: 15%;
+  width: 300px;
 }
 
 .tab {
@@ -73,8 +75,8 @@ body {
   margin-left:2%;
   margin-right:2%;
   margin-bottom: 5%;
-  width: 230px;
-  height: 250px;
+  width: 280px;
+  height: 300px;
   
 }
 
@@ -89,8 +91,8 @@ body {
 .gameBoard {
   border: 3px solid;
   background-color: rgb(62, 71, 80);
-  width: 195px;
-  height: 195px;
+  width: 245px;
+  height: 245px;
   margin-top: 5px;
   margin-left: 10px;
   margin-right: 10px;
@@ -125,13 +127,14 @@ body {
   opacity: 1;
 }
 
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 600px) {
     
   #room {
     margin-top: 0px;
-    flex-wrap: none;
+    
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
 
   .tableTop {
