@@ -232,7 +232,6 @@ function computerTurn (playerspick) {
           break;
         }
       }
-  
     }
   }
 
@@ -247,30 +246,27 @@ function computerTurn (playerspick) {
     var postest = pos.toString();
     console.log(postest + ' is here');
     if (gameGrid[0][0] !== playerMark && gameGrid[0][0] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[0][0]);
-        markGrid(computerMark, gridSpot.id);
-        markSpot(computerMark, gridSpot);
-      } else if (gameGrid[2][0] !== playerMark && gameGrid[2][0] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[2][0]);
-        markGrid(computerMark, gridSpot.id);
-        markSpot(computerMark, gridSpot);
-        console.log('Tried top right');
-      } else if (gameGrid[2][2] !== playerMark && gameGrid[2][2] !== computerMark) {
-        
-        var gridSpot = document.getElementById(gameGrid[2][2]);
-        markGrid(computerMark, gridSpot.id);
-        markSpot(computerMark, gridSpot);
-        console.log('tried ' + gridSpot.id);
-      } else if (gameGrid[0][2] !== playerMark && gameGrid[0][2] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[0][2]);
-        markGrid(computerMark, gridSpot.id);
-        markSpot(computerMark, gridSpot);
+      var gridSpot = document.getElementById(gameGrid[0][0]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[2][0] !== playerMark && gameGrid[2][0] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[2][0]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[2][2] !== playerMark && gameGrid[2][2] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[2][2]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[0][2] !== playerMark && gameGrid[0][2] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[0][2]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
       } else if (gameGrid[1][1] !== playerMark && gameGrid[1][1] !== computerMark) {
-        var gridSpot = document.getElementById(gameGrid[1][1]);
-        markGrid(computerMark, gridSpot.id);
-        markSpot(computerMark, gridSpot);
+      var gridSpot = document.getElementById(gameGrid[1][1]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
       // Check if the corners are free
-      }   // If the corners aren't taken try the regular spots.
+    }   // If the corners aren't taken try the regular spots.
        else if (gameGrid[1][0] !== playerMark && gameGrid[1][0] !== computerMark) {
         var gridSpot = document.getElementById(gameGrid[1][0]);
         markGrid(computerMark, gridSpot.id);
@@ -288,11 +284,7 @@ function computerTurn (playerspick) {
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
       }
-  
-    console.log('Computer chose ' + gridSpot.id) ;
     }
-
-
   gridMap.remap();
   if (scanForDraw()) {
     setTimeout(function () {scoreBoard.textContent = "Draw! Impressive User..";},1000);
@@ -334,12 +326,10 @@ var gridMap = {
 * Valid wins: 123 ,456, 789, 147, 258, 369, 159, 357, 
 */
 function detectWin(boardObject){
-
   if ( boardObject['one'] !== '' && boardObject['one'] === boardObject['two'] && boardObject['two'] === boardObject['three'] ) {
     alert(boardObject);
     alert('Winner');
   }
-
 }
 /*
 * Need function to translate visual grid spots to locations in array gameGrid
@@ -376,7 +366,6 @@ function markGrid (XorO,spot) {
       gameGrid[2][2] = XorO;
       break;
   }
-
 }
 
 function checkGrid (spot) {
@@ -403,9 +392,6 @@ function chooseWeapon () {
     computerMark = 'X';
     setTimeout(computerTurn, 400, [0,0]);
   }
-  console.log('Player has chosen ' + playerMark);
-  console.log('Computer has chosen ' + computerMark);
-
   setupBoard();
 }
 
@@ -414,21 +400,14 @@ function chooseWeapon () {
 */
 
 function markSpot (XorO, gridSpot) {
-  
-  console.log(XorO + ' is the mark');
-    console.log(gridSpot.id + ' is the spot');
   if (XorO === computerMark) {
-    console.log('Computer\'s turn')
     gridSpot.classList.remove('userColour')
     gridSpot.classList.add('computerColour');
-    
   }
   if (XorO === playerMark) {
-    console.log('User\'s turn')
     gridSpot.classList.add('userColour')
     gridSpot.classList.remove('computerColour');
   }
-
   gridSpot.textContent = XorO;
 }
 
@@ -512,22 +491,15 @@ function initGame (reset) {
   });
   gridMap.remap();
   
-  //if (reset !== 'reset') { // not a reset then do this. not a reset would be the first time only.
-   scoreBoard.textContent = "Choose your weapon User"
-    leftTab.classList.remove('userColour');
-    leftTab.classList.remove('computerColour');
-    leftTab.classList.add('neutralColour');
-    leftTab.textContent = 'X';
-    rightTab.classList.remove('userColour');
-    rightTab.classList.remove('computerColour');
-    rightTab.classList.add('neutralColour');
-    rightTab.textContent = 'O';
-    leftTab.addEventListener('click',  chooseWeapon, false );
-    rightTab.addEventListener('click', chooseWeapon, false );  
-
-    console.log(rightTab.classList);
-    console.log(leftTab.classList);
-  //}
+  scoreBoard.textContent = "Choose your weapon User"
+  leftTab.classList.remove('userColour');
+  leftTab.classList.remove('computerColour');
+  leftTab.classList.add('neutralColour');
+  rightTab.classList.remove('userColour');
+  rightTab.classList.remove('computerColour');
+  rightTab.classList.add('neutralColour');
+  leftTab.addEventListener('click',  chooseWeapon, false );
+  rightTab.addEventListener('click', chooseWeapon, false );  
   
 }
 
