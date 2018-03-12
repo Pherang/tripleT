@@ -1,6 +1,6 @@
 // Scan to see if computer has won.
 function scanWin() {
-  ("Running scan win")
+
   marks = 0;
   var computerWins = false;
   
@@ -240,34 +240,19 @@ function computerTurn (playerspick) {
      
      */
   if (!twoFound) {
-    var t = 1;
+    var tx = 1;
+    var tx = 1;
     x = pos[0];
     y = pos[1];
     var postest = pos.toString();
     console.log(postest + ' is here');
-    if (gameGrid[0][0] !== playerMark && gameGrid[0][0] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[0][0]);
-      markGrid(computerMark, gridSpot.id);
-      markSpot(computerMark, gridSpot);
-    } else if (gameGrid[2][0] !== playerMark && gameGrid[2][0] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[2][0]);
-      markGrid(computerMark, gridSpot.id);
-      markSpot(computerMark, gridSpot);
-    } else if (gameGrid[2][2] !== playerMark && gameGrid[2][2] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[2][2]);
-      markGrid(computerMark, gridSpot.id);
-      markSpot(computerMark, gridSpot);
-    } else if (gameGrid[0][2] !== playerMark && gameGrid[0][2] !== computerMark) {
-      var gridSpot = document.getElementById(gameGrid[0][2]);
-      markGrid(computerMark, gridSpot.id);
-      markSpot(computerMark, gridSpot);
-      } else if (gameGrid[1][1] !== playerMark && gameGrid[1][1] !== computerMark) {
+    if (gameGrid[1][1] !== playerMark && gameGrid[1][1] !== computerMark) {
       var gridSpot = document.getElementById(gameGrid[1][1]);
       markGrid(computerMark, gridSpot.id);
       markSpot(computerMark, gridSpot);
-      // Check if the corners are free
-    }   // If the corners aren't taken try the regular spots.
-       else if (gameGrid[1][0] !== playerMark && gameGrid[1][0] !== computerMark) {
+    } else if (gameGrid[1][1] === playerMark)  {
+      console.log('Player took middle');
+      if (gameGrid[1][0] !== playerMark && gameGrid[1][0] !== computerMark) {
         var gridSpot = document.getElementById(gameGrid[1][0]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
@@ -283,8 +268,61 @@ function computerTurn (playerspick) {
         var gridSpot = document.getElementById(gameGrid[0][1]);
         markGrid(computerMark, gridSpot.id);
         markSpot(computerMark, gridSpot);
+      } else if (gameGrid[2][0] !== playerMark && gameGrid[2][0] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[2][0]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } else if (gameGrid[2][2] !== playerMark && gameGrid[2][2] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[2][2]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } else if (gameGrid[0][2] !== playerMark && gameGrid[0][2] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[0][2]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
+      } else if (gameGrid[0][0] !== playerMark && gameGrid[0][0] !== computerMark) {
+        var gridSpot = document.getElementById(gameGrid[0][0]);
+        markGrid(computerMark, gridSpot.id);
+        markSpot(computerMark, gridSpot);
       }
-    }
+     
+    } else if (gameGrid[1][0] !== playerMark && gameGrid[1][0] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[1][0]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[2][1] !== playerMark && gameGrid[2][1] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[2][1]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[1][2] !== playerMark && gameGrid[1][2] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[1][2]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[0][1] !== playerMark && gameGrid[0][1] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[0][1]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[2][0] !== playerMark && gameGrid[2][0] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[2][0]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[2][2] !== playerMark && gameGrid[2][2] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[2][2]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[0][2] !== playerMark && gameGrid[0][2] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[0][2]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+    } else if (gameGrid[0][0] !== playerMark && gameGrid[0][0] !== computerMark) {
+      var gridSpot = document.getElementById(gameGrid[0][0]);
+      markGrid(computerMark, gridSpot.id);
+      markSpot(computerMark, gridSpot);
+  }
+}
+
+
+
   gridMap.remap();
   if (scanForDraw()) {
     setTimeout(function () {scoreBoard.textContent = "Draw! Impressive User..";},1000);
