@@ -18,4 +18,4 @@ There was quite a bit of these to deal with so thinking about them took some.
 
 The major challenge was the computer's logic or *AI*. The spots it chooses are in an order that maximizes its chances of picking the right spots but the AI isn't unbeatable at this point.. still working on that. I like to think it's kind of tough to beat though. I tried many versions of the computer's logic but friends have been able to play and beat it. *Testing is important*
 
-I haven't given up or copied an actual algorithm at this point. I'm still reading about real life tic-tac-toe strategies to try to translate them into code. In a professional setting the right thing to do after a certain point would be to get a solution rather than try to reinvent the wheel.
+I haven't given up or copied an actual algorithm at this point. I'm still reading about real life tic-tac-toe strategies to try to translate them into code. In a **professional** setting the right thing to do after a certain point would be to get a solution rather than try to reinvent the wheel.
